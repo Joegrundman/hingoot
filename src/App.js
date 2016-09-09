@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
+import logo from './logo.svg';
 import Search from './components/Search/Search'
 import ListingContainer from './components/ListingContainer/ListingContainer'
+import Navbar from './components/Navbar/Navbar'
 import './App.css'
 
 
@@ -38,17 +39,11 @@ class App extends Component {
   }
 
   render() {
-    //var img = '<img src={logo} className="App-logo" alt="logo" />'
+    var img = '<img src={logo} className="App-logo" alt="logo" />'
  
     return (
       <div className="App">
-        <div className="App-header">
-
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Navbar />
         <h2>Fae ya gannin oot 'e neet ya hingoot?</h2>
         <h5>Your Scottish Nightlife Coordinator</h5>
         <Search onGetSearchResults={this.handleSearchResults}/>
