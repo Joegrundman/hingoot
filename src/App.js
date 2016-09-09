@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import Search from './components/Search/Search'
 import ListingContainer from './components/ListingContainer/ListingContainer'
-import './App.css';
+import './App.css'
 
 
 class App extends Component {

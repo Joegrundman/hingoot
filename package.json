@@ -33,8 +33,7 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "start:srv": "babel-node server.js",
-    "test:cli": "mocha --compilers js:babel-core/register --require ignore-styles --require ./test/test_setup.js \"test/src/*_spec.js\"",
-    "test:cli2": "mocha --compilers js:babel-core/register --require ignore-styles --require ./test/test_setup.js \"src/components/**/*_spec.js\"",
+    "test:cli": "mocha --compilers js:babel-core/register --require ignore-styles --require ./test/test_setup.js \"src/**/**/*_spec.js\"",
     "test:srv": "mocha --compilers js:babel-core/register --require ./test/test_helper.js \"test/srv/*_spec.js\"",
     "test:srv:watch": "npm run test:srv -- --watch"
   },
