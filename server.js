@@ -21,7 +21,7 @@ let app = express()
  * Redux store will be used to handle server side state, instead of mongodb
  * primarily as an exercise
  * it is faster but of course can't persist if the app is reset
- * but this should not matter since it no entry ever has to persist more than one day'
+ * but this should not matter since no entry ever has to persist more than one day'
  */
 const store = makeStore()
 
@@ -45,7 +45,15 @@ app.get('/yelp/:searchResult', function(req, res) {
         location: location,
         limit: 20
     }).then(function(data) {
-        console.log(data)
+        // console.log(data.businesses)
+        var usefulData = data.businesses.map(b => {return {
+            name: b.name, 
+            snippet_text: b.snippet_text,
+            snippet_image_url: b.snippet_image_url,
+            url: b.url
+        }})
+        // console.log(usefulData)
+        res.json(usefulData)
     }).catch(function(err) {
         console.log(err)
     })

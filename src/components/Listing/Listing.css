@@ -1,6 +1,39 @@
+.Listing {
+    text-align: left;
+}
+
 .Listing-block {
-    height: 20em;
-    width: 50em;
-    margin: 1em;
-    background-color: mediumorchid;
+    height: 8em;
+    width: 98%;
+    margin: 0 0.5em 1em 0.5em;
+    padding-top:10px;
+    background-color: #dde;
+    text-align: left;
+}
+
+.Listing-block:hover {
+    background-color: #ccd;
+}
+
+.Listing-image-holder {
+    border: 1px solid #333;
+    display: inline-block;
+    height: 82px;
+    width: 82px;
+    padding: 5px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 3px;
+}
+
+.Listing-image {
+    height: 76px;
+    width: 76px;
+    margin: 3px;
+    border-radius: 3px;
+}
+
+.Listing-title {
+    display: inline-block;
+    
 }
