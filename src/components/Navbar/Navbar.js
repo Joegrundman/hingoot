@@ -10,7 +10,7 @@ class Navbar extends React.Component {
     render () {
         return (
             <AppBar 
-                title="Title"
+                title={this.props.title}
                 iconElementLeft={<IconButton><NavigationClose /></IconButton>}
                 iconElementRight={
                 <IconMenu

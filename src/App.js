@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import Search from './components/Search/Search'
 import ListingContainer from './components/ListingContainer/ListingContainer'
 import Navbar from './components/Navbar/Navbar'
@@ -39,11 +38,9 @@ class App extends Component {
   }
 
   render() {
-    var img = '<img src={logo} className="App-logo" alt="logo" />'
- 
     return (
       <div className="App">
-        <Navbar />
+        <Navbar title="Hingoot"/>
         <h2>Fae ya gannin oot 'e neet ya hingoot?</h2>
         <h5>Your Scottish Nightlife Coordinator</h5>
         <Search onGetSearchResults={this.handleSearchResults}/>

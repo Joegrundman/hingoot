@@ -13,8 +13,12 @@ class Listing extends React.Component {
                 actAsExpander={true} 
                 showExpandableButton={true} />
                 <CardActions>
-                    <FlatButton label="Going?" />
-                    <FlatButton label="Go to Yelp" />
+                    <FlatButton 
+                    primary={true}
+                    label="Going?" />
+                    <FlatButton 
+                    primary={true}
+                    label="Go to Yelp" />
 
                 </CardActions>
                 <CardText expandable={true} >

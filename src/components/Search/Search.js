@@ -1,6 +1,7 @@
 import React from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
+import CircularProgress from 'material-ui/CircularProgress'
 import axios from 'axios'
 import './Search.css'
 
@@ -8,6 +9,7 @@ class Search extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            loadingAjax: false,
             searchTerm: ''
         }
 
@@ -29,11 +31,25 @@ class Search extends React.Component {
             .then(res => {
                 console.log('success search')
                 this.props.onGetSearchResults(res)
-                this.setState({searchTerm: ''})})
+                this.setState({
+                    loadingAjax: false,
+                    searchTerm: ''
+                })})
             .catch(error => {
-                this.props.onGetSearchResults()
+                // simulates ajax delay - remove timeout function for production
+                setTimeout(() => {
+                    this.props.onGetSearchResults()
+                                this.setState({
+                                    loadingAjax: false,
+                                    searchTerm: ''
+                                })
+
+                }, 2000)
+          
                 console.log(error)
             })
+        this.setState({loadingAjax:true})
+        
     }
 
     render () {
@@ -54,6 +70,8 @@ class Search extends React.Component {
                     onClick={this.handleSearchClick}
                     primary={true}
                     label="Submit" />
+                    <br />
+                {this.state.loadingAjax ? <CircularProgress /> : null}
             </div>
         )
     }

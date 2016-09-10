@@ -16,7 +16,6 @@ class ListingContainer extends React.Component {
 
         return (
             <div className="ListingContainer">
-            <h1>Listing container</h1>
                 {listings}
             </div>
         )
