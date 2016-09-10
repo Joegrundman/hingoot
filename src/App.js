@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Search from './components/Search/Search'
 import ListingContainer from './components/ListingContainer/ListingContainer'
 import Navbar from './components/Navbar/Navbar'
+import YelpLogo from './components/YelpLogo/YelpLogo'
 import './App.css'
 
 
@@ -29,7 +30,6 @@ class App extends Component {
       places = data.data
     }
   
-    console.log(places)
     places.forEach(d => console.log(d))
     this.setState({
       pristine: false,
@@ -46,6 +46,10 @@ class App extends Component {
         <Search onGetSearchResults={this.handleSearchResults}/>
         <br />
         {this.state.pristine ? '': <ListingContainer results={this.state.results} />}
+      
+        <br />
+        <br />
+        <YelpLogo />
       </div>
     )
   }

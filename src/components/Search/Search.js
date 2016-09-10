@@ -30,19 +30,20 @@ class Search extends React.Component {
         axios.get(`/yelp/${searchReq}`)
             .then(res => {
                 console.log('success search')
-                this.props.onGetSearchResults(res)
+                
                 this.setState({
                     loadingAjax: false,
                     searchTerm: ''
-                })})
+                }, this.props.onGetSearchResults(res))
+            })
             .catch(error => {
                 // simulates ajax delay - remove timeout function for production
                 setTimeout(() => {
-                    this.props.onGetSearchResults()
-                                this.setState({
-                                    loadingAjax: false,
-                                    searchTerm: ''
-                                })
+  
+                    this.setState({
+                        loadingAjax: false,
+                        searchTerm: ''
+                    },  this.props.onGetSearchResults())
 
                 }, 2000)
           

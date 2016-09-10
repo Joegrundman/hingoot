@@ -2,4 +2,4 @@ click on going should send ajax to server and update number of people going
 
 click on yelp should redirect to appropriate yelp page
 
-add powered by yelp
+if new search, need to clear old listings

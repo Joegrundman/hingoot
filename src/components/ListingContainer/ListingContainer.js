@@ -9,10 +9,8 @@ class ListingContainer extends React.Component {
      let listings = this.props.results.map((res, i) => (
         <Listing 
           key={i} 
-          img={res.snippet_image_url}
-          url="{res.url}"
-          name={res.name} 
-          snippet={res.snippet_text}/>))
+          stats={res} 
+        />))
 
         return (
             <div className="ListingContainer">

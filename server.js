@@ -1,8 +1,12 @@
 const express = require('express')
 const Yelp = require('yelp')
+import {List, Map } from 'immutable'
 import makeStore from './app/rdx/store'
+import { incrementOrAddEntry } from './app/rdx/action_creators'
+import { getEntryVotes } from './app/rdx/core'
 const isDev = process.env.NODE_ENV == 'development'
 const PORT = process.env.PORT || 4000
+
 
 require('dotenv').load()
 const config = require('./app/config/auth')
@@ -25,8 +29,6 @@ let app = express()
  */
 const store = makeStore()
 
-if(process.env)
-
 app.use(express.static('build/'))
 
 app.get('/', function(req, res){
@@ -48,12 +50,12 @@ app.get('/yelp/:searchResult', function(req, res) {
         console.log(data.businesses)
 
         var usefulData = data.businesses.map(b => {return {
+            votes: 0,
             id: b.id,
             name: b.name, 
             snippet_text: b.snippet_text,
             snippet_image_url: b.snippet_image_url,
-            url: b.url,
-            votes: 0
+            url: b.url
         }})
         usefulData.map(v => {v.votes = store.getVotes})
         // console.log(usefulData)
@@ -61,13 +63,20 @@ app.get('/yelp/:searchResult', function(req, res) {
     }).catch(function(err) {
         console.log(err)
     })
+})
 
-    app.get('/going/:id', function(req, res){
 
-    })
+app.get('/going/:id', (req, res) => {
+    var id = decodeURIComponent(req.url.replace('/going/', ''))
+    console.log('incrementing for', id)
+    store.dispatch(incrementOrAddEntry(id))
+    
+    var votes = getEntryVotes(store.getState(), id)
+    res.json({votes})
 
 })
 
 app.listen(PORT, function(){
     console.log('Hingoot server listening on http://localhost/%s', PORT)
 })
+
