@@ -5,6 +5,7 @@ import {initState,
         addEntry, 
         getEntryVotes,
         increment,
+        incrementOrAddEntry,
         decrement,
         deleteEntry} from '../../app/rdx/core'
 
@@ -19,14 +20,46 @@ describe('application logic', () => {
 
     describe('addEntry', () => {
         it('adds a new entry to the state', () => {
-            const state = List.of(Map({place: "Boat House"}))
+            const state = List.of(Map({place: "Boat House", votes: 1}))
             const nextState = addEntry(state, "The Railway")
 
             expect(nextState).to.equal(List.of(
-                Map({place: "Boat House"}),
-                Map({place: "The Railway"})
+                Map({place: "Boat House", votes: 1}),
+                Map({place: "The Railway", votes: 1})
             ))
         })
+    })
+
+    describe('incrementOrAddEntry', () => {
+        it('should increment entry if it already exists', () => {
+            const state = List.of(Map({
+                place: "Boat House",
+                votes: 2
+            }))
+            const nextState  = incrementOrAddEntry(state, "Boat House")
+            expect(nextState).to.equal(List.of(Map({
+                place: "Boat House",
+                votes: 3
+            })))
+        })
+        it('should add a new entry with 1 vote if not already present', () => {
+             const state = List.of(Map({
+                place: "Boat House",
+                votes: 2
+            }))     
+            const nextState = incrementOrAddEntry(state, "The Gate")
+            expect(nextState).to.equal(List.of(
+                Map({
+                    place: "Boat House",
+                    votes: 2
+            }),
+                Map({
+                    place: "The Gate",
+                    votes: 1
+                })
+            ))      
+        })
+
     })
 
     describe('deleteEntry', () => {
@@ -38,6 +71,15 @@ describe('application logic', () => {
             const nextState = deleteEntry(state, "The Railway")
 
             expect(nextState).to.equal(List.of(Map({place: "Boat House"})))
+        })
+        it('should return the state if the entry to be removed is not found', () => {
+            const state = List.of(
+                Map({place: "Boat House"}),
+                Map({place: "The Railway"})
+            )
+
+            const nextState = deleteEntry(state, "The Gate")
+            expect(nextState).to.equal(state)
         })
     })
 

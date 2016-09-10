@@ -8,12 +8,12 @@ export function initState (state) {
     }   else {
         return state
     }
-
 }
 
 export function addEntry (state, entry) {
     const newEntry = Map({
-        place: entry
+        place: entry,
+        votes: 1
     })
     return state.push(newEntry)
 }
@@ -34,6 +34,14 @@ export function increment(state, entry) {
         }
     })
 
+}
+
+export function incrementOrAddEntry(state, entry) {    
+    if (state.find(x => x.get('place') == entry)){
+        return increment(state, entry)
+    } else {
+        return addEntry(state, entry)
+    }
 }
 
 export function decrement(state, entry) {

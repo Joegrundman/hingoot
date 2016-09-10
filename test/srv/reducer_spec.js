@@ -12,13 +12,26 @@ describe('the reducer', () => {
     })
 
     it('handles adding an entry to the state', () => {
-        const state = List.of(Map({place: "Boat House"}))
+        const state = List.of(Map({place: "Boat House", votes: 1}))
         const action = {type: 'ADD_ENTRY', entry: 'The Railway'}
         const nextState = reducer(state, action) 
         expect(nextState).to.equal(List.of(
-                Map({place: "Boat House"}),
-                Map({place: "The Railway"})
+                Map({place: "Boat House", votes: 1}),
+                Map({place: "The Railway", votes: 1})
         ))
+    })
+
+    it('handles adding an entry if new or incrementing if present', () => {
+        const state = List.of(Map({place: "Boat House", votes: 1}))
+        const action1 = {type: 'INCREMENT_OR_ADD_ENTRY', entry: 'The Railway'}
+        const action2 = {type: 'INCREMENT_OR_ADD_ENTRY', entry: 'Boat House'}
+        const nextState1 = reducer(state, action1)
+        const nextState2 = reducer(nextState1, action2)
+        expect(nextState2).to.equal(List.of(
+                Map({place: "Boat House", votes: 2}),
+                Map({place: "The Railway", votes: 1})
+        ))
+
     })
 
     it('handles deleting an entry from the state', () => {

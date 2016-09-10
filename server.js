@@ -45,17 +45,25 @@ app.get('/yelp/:searchResult', function(req, res) {
         location: location,
         limit: 20
     }).then(function(data) {
-        // console.log(data.businesses)
+        console.log(data.businesses)
+
         var usefulData = data.businesses.map(b => {return {
+            id: b.id,
             name: b.name, 
             snippet_text: b.snippet_text,
             snippet_image_url: b.snippet_image_url,
-            url: b.url
+            url: b.url,
+            votes: 0
         }})
+        usefulData.map(v => {v.votes = store.getVotes})
         // console.log(usefulData)
         res.json(usefulData)
     }).catch(function(err) {
         console.log(err)
+    })
+
+    app.get('/going/:id', function(req, res){
+
     })
 
 })

@@ -3,6 +3,7 @@ import {initState,
         increment,
         decrement,
         deleteEntry,
+        incrementOrAddEntry,
         INITIAL_STATE
         } from './core'
 
@@ -18,6 +19,8 @@ export default function reducer(state = INITIAL_STATE, action){
             return increment(state, action.entry)
         case 'DECREMENT_VOTE':
             return decrement(state, action.entry)
+        case 'INCREMENT_OR_ADD_ENTRY':
+            return incrementOrAddEntry(state, action.entry)
         default: return state
     }
 }

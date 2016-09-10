@@ -13,3 +13,7 @@ export function increment(entry) {
 export function decrement(entry) {
     return { entry, type: 'DECREMENT_VOTE'}
 }
+
+export function incrementOrAddEntry(entry) {
+    return { entry, type: 'INCREMENT_OR_ADD_ENTRY'}
+}

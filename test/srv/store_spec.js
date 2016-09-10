@@ -19,11 +19,11 @@ describe('the store', () => {
         expect(store.getState()).to.equal(fromJS([
             {
                 place: "The Thorntree",
-                votes: 2
+                votes: 3
             },
             {
                 place: "The White Lion",
-                votes: 3
+                votes: 4
             }
         ]))
 
