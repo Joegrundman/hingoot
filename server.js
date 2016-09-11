@@ -72,6 +72,7 @@ app.get('/going/:id', (req, res) => {
     store.dispatch(incrementOrAddEntry(id))
     
     var votes = getEntryVotes(store.getState(), id)
+    console.log(votes)
     res.json({votes})
 
 })

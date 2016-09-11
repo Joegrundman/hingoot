@@ -23,8 +23,9 @@ class Listing extends React.Component {
         console.log('clicked going to', this.props.stats.name)
         axios.get(`/going/${this.props.stats.id}`)
              .then( (data) => {
-                 var votes = JSON.parse(data.votes)
-                 console.log('voted and now at ', data)
+                 console.log('++++',data.data)
+                 var votes = data.data.votes
+                 console.log('voted and now at ', votes)
                  this.setState({
                      votes: JSON.parse(votes)
                  })
@@ -42,22 +43,26 @@ class Listing extends React.Component {
           <div className="Listing">  
             <Card>
                 <CardHeader 
+                avatar={this.props.stats.snippet_image_url}
                 title={this.props.stats.name}
                 subtitle={"going: " + this.state.votes }
-                actAsExpander={true} 
-                showExpandableButton={true} />
+                actAsExpander={false} 
+                showExpandableButton={false} />
                 <CardActions>
                     <FlatButton 
                     primary={true}
                     label="Going?" 
                     onClick={this.handleClick}/>
-                    <FlatButton 
-                    primary={true}
-                    label="Go to Yelp" />
+                    <a href={this.props.stats.url} 
+                       target="_blank" >
+                        <FlatButton 
+                        primary={true}
+                        label="Go to Yelp" />
+                    </a>
 
                 </CardActions>
-                <CardText expandable={true} >
-                {this.props.stats.snippet}
+                <CardText expandable={false} >
+                {this.props.stats.snippet_text}
                 </CardText>
             </Card>
             <br />
