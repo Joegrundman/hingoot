@@ -7,9 +7,10 @@ import { getEntryVotes } from './app/rdx/core'
 const isDev = process.env.NODE_ENV == 'development'
 const PORT = process.env.PORT || 4000
 
-
-require('dotenv').load()
-const config = require('./app/config/auth')
+if (isDev){
+    require('dotenv').load()
+    const config = require('./app/config/auth')
+}
 
 // yelp config
 var yelp = new Yelp({
