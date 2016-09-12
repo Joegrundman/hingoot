@@ -18,10 +18,6 @@ class App extends Component {
     this.handleSearchResults = this.handleSearchResults.bind(this)
   }
 
-  componentDidMount(){
-    console.log('component did mount called')
-  }
-
   removeListings () {
     this.setState({
       pristine: true
