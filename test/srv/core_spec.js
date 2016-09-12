@@ -92,6 +92,14 @@ describe('application logic', () => {
             expect(getEntryVotes(state, "Boat House")).to.equal(3)
             expect(getEntryVotes(state, "The Railway")).to.equal(5)
         })
+        it('should return 0 if the entry is not present', () => {
+           const state = List.of(
+                Map({place: "Boat House", votes: 3}),
+                Map({place: "The Railway", votes: 5})
+            )
+
+            expect(getEntryVotes(state, "The Gate")).to.equal(0)          
+        })
     })
 
     describe('increment', () => {

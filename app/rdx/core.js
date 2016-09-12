@@ -23,7 +23,8 @@ export function deleteEntry(state, entry) {
 }
 
 export function getEntryVotes(state, entry) {
-    return state.find(x => x.get('place') == entry).get('votes')
+    var place = state.find(x => x.get('place') == entry)
+    return place ? place.get('votes') : 0
 }
 
 export function increment(state, entry) {

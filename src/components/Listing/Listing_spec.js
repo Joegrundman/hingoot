@@ -7,8 +7,16 @@ import Listing from './Listing'
 
 describe('<Listing />', () => {
     let wrapper
+    const mockStats = {
+            snippet_img_url: 'imgurl',
+            name: 'a place',
+            votes: 0,
+            snippet_text: 'great place',
+            url: 'url'
+        }
+    
     beforeEach(() => {
-        wrapper = shallow(<Listing />)
+        wrapper = shallow(<Listing stats={mockStats}/>)
     })
     it('should render a <Listing> component' , () => {
         expect(wrapper).to.be.ok

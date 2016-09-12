@@ -19,8 +19,21 @@ class Listing extends React.Component {
         }
     }
 
+    // componentDidUpdate() {
+    //       if(this.props.stats.votes && this.props.stats.votes > 0){
+    //         this.setState({votes: this.props.stats.votes})
+    //     } else {
+    //         this.setState({votes: 0})
+    //     }     
+    // }
+
+    // // shouldComponentUpdate(nextProps, nextState) {
+    // //     return nextProps.stats.id !== this.props.stats.id || 
+    // //         nextProps.stats.votes !== this.props.stats.votes ||
+    // //         nextState.votes !== this.state.votes
+    // // }
+
     handleClick() {
-        console.log('clicked going to', this.props.stats.name)
         axios.get(`/going/${this.props.stats.id}`)
              .then( (data) => {
                  console.log('++++',data.data)

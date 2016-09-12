@@ -26,6 +26,7 @@ class Search extends React.Component {
 
     handleSearchClick(e) {
         e.preventDefault()
+        this.props.removeListings()
         let searchReq = encodeURIComponent(this.state.searchTerm)
         axios.get(`/yelp/${searchReq}`)
             .then(res => {

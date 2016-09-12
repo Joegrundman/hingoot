@@ -7,7 +7,7 @@ class YelpLogo extends React.Component {
     render () {
         return (
             <div className="YelpLogo">
-                <small> Powered by </small><img className="YelpLogo-img" src={imgUrl} />
+                <small> Powered by </small><img className="YelpLogo-img" src={imgUrl} alt="Yelp Logo" />
             </div>
         )
     }

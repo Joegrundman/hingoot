@@ -2,7 +2,7 @@ const express = require('express')
 const Yelp = require('yelp')
 import {List, Map } from 'immutable'
 import makeStore from './app/rdx/store'
-import { incrementOrAddEntry } from './app/rdx/action_creators'
+import { incrementOrAddEntry, decrement } from './app/rdx/action_creators'
 import { getEntryVotes } from './app/rdx/core'
 const isDev = process.env.NODE_ENV == 'development'
 const PORT = process.env.PORT || 4000
@@ -47,18 +47,19 @@ app.get('/yelp/:searchResult', function(req, res) {
         location: location,
         limit: 20
     }).then(function(data) {
-        console.log(data.businesses)
+        // console.log(data.businesses)
 
-        var usefulData = data.businesses.map(b => {return {
-            votes: 0,
+        var usefulData = data.businesses.map(b => {
+            var votes = getEntryVotes(store.getState(), b.id)
+            return {
+            votes, 
             id: b.id,
             name: b.name, 
             snippet_text: b.snippet_text,
             snippet_image_url: b.snippet_image_url,
             url: b.url
         }})
-        usefulData.map(v => {v.votes = store.getVotes})
-        // console.log(usefulData)
+        console.log(usefulData)
         res.json(usefulData)
     }).catch(function(err) {
         console.log(err)
@@ -69,12 +70,18 @@ app.get('/yelp/:searchResult', function(req, res) {
 app.get('/going/:id', (req, res) => {
     var id = decodeURIComponent(req.url.replace('/going/', ''))
     console.log('incrementing for', id)
-    store.dispatch(incrementOrAddEntry(id))
-    
+    store.dispatch(incrementOrAddEntry(id))  
     var votes = getEntryVotes(store.getState(), id)
-    console.log(votes)
     res.json({votes})
 
+})
+
+app.get('/notgoing/:id', (req, res) => {
+    var id = decodeURIComponent(req.url.replace('/notgoing/', ''))
+    console.log('decrementing for', id)
+    store.dispatch(decrement(id))
+    var votes = getEntryVotes(store.getState(), id)
+    res.json({votes})
 })
 
 app.listen(PORT, function(){
