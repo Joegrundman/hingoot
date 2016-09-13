@@ -1,5 +1,4 @@
 const isDev = process.env.NODE_ENV == 'development'
-console.log("=====>",process.env.NODE_ENV)
 
 const express = require('express')
 const Yelp = require('yelp')
@@ -31,7 +30,7 @@ var yelp = new Yelp({
     token_secret: config.tokenSecret
 })
 
-let app = express()
+var app = express()
 
 /**
  * Redux store will be used to handle server side state, instead of mongodb
