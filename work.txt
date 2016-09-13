@@ -1,4 +1,0 @@
-switch express for socket
-if new search, need to clear old listings
-images
-need error handling if search results in no finds

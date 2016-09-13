@@ -1,7 +1,9 @@
-import {Map, List, fromJS} from 'immutable'
-import {expect} from 'chai'
-
-import reducer from '../../app/rdx/reducer'
+const Immutable = require('immutable')
+const expect = require('chai').expect
+const reducer = require('../../app/rdx/reducer')
+const List = Immutable.List
+const Map = Immutable.Map
+const fromJS = Immutable.fromJS
 
 describe('the reducer', () => {
     it('handles initialising the tree as an empty List', () => {
@@ -14,7 +16,7 @@ describe('the reducer', () => {
     it('handles adding an entry to the state', () => {
         const state = List.of(Map({place: "Boat House", votes: 1}))
         const action = {type: 'ADD_ENTRY', entry: 'The Railway'}
-        const nextState = reducer(state, action) 
+        const nextState = reducer(state, action ) 
         expect(nextState).to.equal(List.of(
                 Map({place: "Boat House", votes: 1}),
                 Map({place: "The Railway", votes: 1})

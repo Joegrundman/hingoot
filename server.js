@@ -1,17 +1,28 @@
+const isDev = process.env.NODE_ENV == 'development'
+console.log("=====>",process.env.NODE_ENV)
+
 const express = require('express')
 const Yelp = require('yelp')
-import {List, Map } from 'immutable'
-import makeStore from './app/rdx/store'
-import { incrementOrAddEntry, decrement } from './app/rdx/action_creators'
-import { getEntryVotes } from './app/rdx/core'
-const isDev = process.env.NODE_ENV == 'development'
+const Immutable = require('immutable')
+const List = Immutable.List
+const Map = Immutable.Map
+
+const makeStore = require('./app/rdx/store')
+const actions = require('./app/rdx/action_creators')
+const incrementOrAddEntry = actions.incrementOrAddEntry
+const decrement = actions.decrement
+const getEntryVotes = require('./app/rdx/core').getEntryVotes
+// import makeStore from (`./${appDir}/rdx/store`)
+// import { incrementOrAddEntry, decrement } from (`./${appDir}/rdx/action_creators`)
+// import { getEntryVotes } from (`./${appDir}/rdx/action_creators`)
+ 
 const PORT = process.env.PORT || 4000
 
 if (isDev){
+    console.log("node development environment")
     require('dotenv').load()
-    const config = require('./app/config/auth')
 }
-
+const config = require('./app/config/auth')
 // yelp config
 var yelp = new Yelp({
     consumer_key: config.consumerKey,
