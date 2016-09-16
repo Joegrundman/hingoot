@@ -9,7 +9,8 @@ class Listing extends React.Component {
         super(props)
         this.handleClick = this.handleClick.bind(this)
         this.state = {
-            votes: 0
+            votes: 0,
+            alreadyVoted: false
         }
     }
 
@@ -17,30 +18,29 @@ class Listing extends React.Component {
         if(this.props.stats.votes && this.props.stats.votes > 0){
             this.setState({votes: this.props.stats.votes})
         }
+        //TODO: get local storage, check time and see if already obsolete. 
+        //if so remove local storage element
+        //otherwise read and set state in Listing
     }
 
-    // componentDidUpdate() {
-    //       if(this.props.stats.votes && this.props.stats.votes > 0){
-    //         this.setState({votes: this.props.stats.votes})
-    //     } else {
-    //         this.setState({votes: 0})
-    //     }     
-    // }
-
-    // // shouldComponentUpdate(nextProps, nextState) {
-    // //     return nextProps.stats.id !== this.props.stats.id || 
-    // //         nextProps.stats.votes !== this.props.stats.votes ||
-    // //         nextState.votes !== this.state.votes
-    // // }
-
     handleClick() {
-        axios.get(`/going/${this.props.stats.id}`)
-             .then( (data) => {
-                 console.log('++++',data.data)
+        // TODO: check to see if authenticated
+        // if not auth got to fb login (or use unauthorised)
+        // if auth, check to see if already voted. If so, decrement
+        // otherwise increment
+        const tz = new Date().getTimezoneOffset()
+ 
+        axios.get(`/going/${this.props.stats.id}.${tz}`)
+             .then(data => {
+                //  console.log('++++',data.data)
                  var votes = data.data.votes
-                 console.log('voted and now at ', votes)
+                //  console.log('voted and now at ', votes)
+
+                //TODO: add local storage on already voted and time
+
                  this.setState({
-                     votes: JSON.parse(votes)
+                     votes: JSON.parse(votes),
+                     alreadyVoted: true
                  })
              })
              .catch( (err) => {

@@ -1,14 +1,4 @@
-// import {List, Map} from 'immutable'
-// import {expect} from 'chai'
-
-// import {initState, 
-//         addEntry, 
-//         getEntryVotes,
-//         increment,
-//         incrementOrAddEntry,
-//         decrement,
-//         deleteEntry} from '../../app/rdx/core'
-
+const moment = require('moment')
 const Immutable = require('immutable')
 const expect = require('chai').expect
 const core = require('../../app/rdx/core')
@@ -167,9 +157,44 @@ describe('application logic', () => {
             expect(nextState).to.equal(List.of(
                 Map({place: "Boat House"}),
                 Map({place: "The Railway", votes: 5})
-            )   )            
+            ))            
         })
     })
 
+    describe("cleanUpStore", () => {
+
+        const testDate = "2016-09-14T20:47:25.715Z"
+
+        it("should remove all entries after midnight", () => {
+            const state = List.of(
+                Map({place: "Boat House", votes: 1, day: 15}),
+                Map({place: "The Railway", votes: 5, day: 14})
+            )
+            const nextDay = new Date(testDate).getDate() + 1
+
+            const nextState = core.cleanUpStore(state, nextDay)
+            
+            expect(nextState).to.equal(List.of(
+                Map({place: "Boat House", votes: 1, day: 15})
+            ))
+        })
+
+        it('should handle different timezones', () => {
+ 
+            const state = List.of(
+                Map({place: "Boat House", votes: 1, day: 14, tz: 10}),
+                Map({place: "The Railway", votes: 5, day: 14, tz: 0, })
+            )    
+            const date = new Date(testDate)
+            const nextDay = date.getDate()
+            const hours = date.getHours()
+
+            const nextState = core.cleanUpStore(state, nextDay, hours)
+            expect(nextState).to.equal(List.of(
+                Map({place: "The Railway", votes: 5, day: 14, tz: 0})
+            ))         
+        })
+
+    })
 
 })

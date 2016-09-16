@@ -10,11 +10,9 @@ const makeStore = require('./app/rdx/store')
 const actions = require('./app/rdx/action_creators')
 const incrementOrAddEntry = actions.incrementOrAddEntry
 const decrement = actions.decrement
+const cleanUpSTore = actions.cleanUpSTore
 const getEntryVotes = require('./app/rdx/core').getEntryVotes
-// import makeStore from (`./${appDir}/rdx/store`)
-// import { incrementOrAddEntry, decrement } from (`./${appDir}/rdx/action_creators`)
-// import { getEntryVotes } from (`./${appDir}/rdx/action_creators`)
- 
+
 const PORT = process.env.PORT || 4000
 
 if (isDev){
@@ -48,17 +46,13 @@ app.get('/', function(req, res){
 
 app.get('/yelp/:searchResult', function(req, res) {
 
-    // console.log('incoming search request', req.url)
-
     var location = decodeURIComponent(req.url.replace('/yelp/', '')).replace(/\s/g, '+')
-    // console.log('parsed location', location)
 
     yelp.search({
         term: 'nightlife',
         location: location,
         limit: 20
     }).then(function(data) {
-        // console.log(data.businesses)
 
         var usefulData = data.businesses.map(b => {
             var votes = getEntryVotes(store.getState(), b.id)
@@ -78,8 +72,10 @@ app.get('/yelp/:searchResult', function(req, res) {
 })
 
 
-app.get('/going/:id', (req, res) => {
-    var id = decodeURIComponent(req.url.replace('/going/', ''))
+app.get('/going/:id.:timezone', (req, res) => {
+    // var id = decodeURIComponent(req.url.replace('/going/', ''))
+    var id = decodeURIComponent(req.params.id)
+    var time = decodeURIComponent(req.params.time)
     console.log('incrementing for', id)
     store.dispatch(incrementOrAddEntry(id))  
     var votes = getEntryVotes(store.getState(), id)
@@ -87,8 +83,9 @@ app.get('/going/:id', (req, res) => {
 
 })
 
-app.get('/notgoing/:id', (req, res) => {
-    var id = decodeURIComponent(req.url.replace('/notgoing/', ''))
+app.get('/notgoing/:id/', (req, res) => {
+    // var id = decodeURIComponent(req.url.replace('/notgoing/', ''))
+    var id = decodeURIComponent(req.params.id)
     console.log('decrementing for', id)
     store.dispatch(decrement(id))
     var votes = getEntryVotes(store.getState(), id)

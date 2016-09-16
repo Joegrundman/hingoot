@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Search from './components/Search/Search'
-import ListingContainer from './components/ListingContainer/ListingContainer'
-import Navbar from './components/Navbar/Navbar'
-import YelpLogo from './components/YelpLogo/YelpLogo'
+import Search from '../Search/Search'
+import ListingContainer from '../ListingContainer/ListingContainer'
+import Navbar from '../Navbar/Navbar'
+import YelpLogo from '../YelpLogo/YelpLogo'
 import './App.css'
 
 
@@ -11,9 +11,11 @@ class App extends Component {
     super(props)
 
     this.state = {
-      pristine:true     
+      pristine:true,
+      isLoggedIn: false,
+      allowUnauthorised: false     
     }
-
+    this.toggleAllowUnauth = this.toggleAllowUnauth.bind(this)
     this.removeListings = this.removeListings.bind(this)
     this.handleSearchResults = this.handleSearchResults.bind(this)
   }
@@ -21,6 +23,12 @@ class App extends Component {
   removeListings () {
     this.setState({
       pristine: true
+    })
+  }
+
+  toggleAllowUnauth() {
+    this.setState({
+      allowUnauthorised: !this.state.allowUnauthorised
     })
   }
 
@@ -44,7 +52,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar title="Hingoot"/>
+        <Navbar title="Hingoot" allowUnauth={this.toggleAllowUnauth} isAuth={this.state.allowUnauthorised}/>
+        <div
+          class="fb-like"
+          data-share="true"
+          data-width="450"
+          data-show-faces="true">
+        </div>
         <h2>Fae ya gannin oot 'e neet ya hingoot?</h2>
         <h5>Your Scottish Nightlife Coordinator</h5>
         <Search 

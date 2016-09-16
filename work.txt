@@ -1,0 +1,37 @@
+add fb login
+    login goes on button push
+
+add localstorage of already voted
+    if voted than a second button click will remove vote choice
+
+add socketio for live update
+    -worry about or fix the problem with insecure actions being fired
+
+change store to Map, not List using id. 
+    Maybe quicker retrieval since no comparison function required.
+    But not a problem unless app starts to grow
+
+
+add timestamp and removal process
+    -possibility one:
+        date.now on client will send local time and timezone in minutes.
+        save timezone
+        server crawls through store every hour and deletes all entries whose localtime = 0400
+
+add possibilty of identifying fb friends who are going to the same place
+    - is there a webapi for this?
+    -possibility1: save a list of all friend id-s and user id with every upvote(makes object get quite big!)
+                if matching friends ids, sends data about matching friends
+    -possibilty
+
+on webpage
+    remove functionality from navbar except signout from facebook
+
+add jwt login service for non fb users?
+    could be hassle, but statefull jwt means we don't need to store server details
+
+add twitter login and friends finder?
+    requires selecting login method and default, maybe just stick to fb
+
+add disable authorization feature
+

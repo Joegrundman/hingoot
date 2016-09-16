@@ -37,5 +37,8 @@ module.exports = {
     },
     incrementOrAddEntry: function incrementOrAddEntry(entry) {
         return { entry, type: 'INCREMENT_OR_ADD_ENTRY'}
+    },
+    cleanUpStore: function cleanUpStore(){
+        return {type: 'CLEAN_UP_STORE'}
     }    
 }

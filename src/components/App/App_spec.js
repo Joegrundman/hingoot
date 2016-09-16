@@ -2,8 +2,8 @@ import React from 'react'
 import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import App from './App'
-import Search from './components/Search/Search'
-import Navbar from './components/Navbar/Navbar'
+import Search from '../Search/Search'
+import Navbar from '../Navbar/Navbar'
 
 describe('<App />', () => {
     let wrapper

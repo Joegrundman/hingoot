@@ -7,6 +7,15 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 class Navbar extends React.Component {
+    constructor(props) {
+        super(props)
+        this.handleAuthClick = this.handleAuthClick.bind(this)
+    }
+
+    handleAuthClick(){
+        this.props.allowUnauth()
+    }
+
     render () {
         return (
             <AppBar 
@@ -22,9 +31,11 @@ class Navbar extends React.Component {
                 >
                     <MenuItem primaryText="Refresh" />
                     <MenuItem primaryText="Help" />
+                    <MenuItem primaryText="Log in" />
                     <MenuItem primaryText="Sign out" />
-      </IconMenu>
-    }
+                    <MenuItem primaryText={this.props.allowUnauth ? "require auth" : "allow unauth" } onClick={this.handleAuthClick}/>
+                </IconMenu>
+                     }
             />
         )
     }

@@ -1,63 +1,8 @@
-// import {List, Map} from 'immutable'
-
-// export const INITIAL_STATE = List()
-
-// export function initState (state) {
-//     if(!state) {
-//         return List()
-//     }   else {
-//         return state
-//     }
-// }
-
-// export function addEntry (state, entry) {
-//     const newEntry = Map({
-//         place: entry,
-//         votes: 1
-//     })
-//     return state.push(newEntry)
-// }
-
-// export function deleteEntry(state, entry) {
-//     return state.filterNot(x => x.get('place') == entry)
-// }
-
-// export function getEntryVotes(state, entry) {
-//     var place = state.find(x => x.get('place') == entry)
-//     return place ? place.get('votes') : 0
-// }
-
-// export function increment(state, entry) {
-//     return state.map(x => {if (x.get('place') == entry) {
-//             return x.updateIn(['votes'], 0 , votes => votes + 1)
-//         } else { 
-//             return x 
-//         }
-//     })
-
-// }
-
-// export function incrementOrAddEntry(state, entry) {    
-//     if (state.find(x => x.get('place') == entry)){
-//         return increment(state, entry)
-//     } else {
-//         return addEntry(state, entry)
-//     }
-// }
-
-// export function decrement(state, entry) {
-//     return state.map(x => {
-//         if(x.get('place') == entry){
-//             return x.updateIn(['votes'], 0, votes => votes > 0 ? votes - 1 : votes)
-//         } else {
-//             return x
-//         }
-//     })
-// }
-
 const Immutable = require('immutable')
 const Map = Immutable.Map
 const List = Immutable.List
+// const moment = require('moment')
+
 
 module.exports = {
     INITIAL_STATE : List(),
@@ -108,5 +53,18 @@ module.exports = {
                 return x
             }
         })
-    }   
+    },
+
+    cleanUpStore: function cleanUpStore(state, day, hrs = 0) {   
+        return state.filter(x => {
+            const tz = x.get('tz') || 0
+            if (hrs + tz > 24) { 
+                return x.get('day') == day + 1          
+        }
+            else if (hrs + tz < 0) { 
+               return x.get('day') == day - 1 
+        }
+            return x.get('day') == day
+        })
+    }
 } 
