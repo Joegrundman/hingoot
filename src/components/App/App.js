@@ -4,7 +4,6 @@ import ListingHolder from '../ListingHolder/ListingHolder'
 import Navbar from '../Navbar/Navbar'
 import YelpLogo from '../YelpLogo/YelpLogo'
 import './App.css'
-// import {setListings} from '../../store/actions'
 
 class App extends Component {
   constructor(props) {
@@ -40,17 +39,9 @@ class App extends Component {
       console.log('using tempdata')
       places = this.props.tempData
       console.log('places', places)
-      // store.dispatch({
-      //   type: 'SET_LISTINGS',
-      //   listings: this.props.tempData
-      // })
 
     } else {
       places = data.data
-      // store.dispatch({
-      //   type: 'SET_LISTINGS',
-      //   listings: data.data
-      // })
     }
     //remove this for production
     places.forEach(d => console.log(d))
