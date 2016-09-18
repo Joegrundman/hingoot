@@ -67,7 +67,7 @@ class App extends Component {
       <div className="App">
         <Navbar title="Hingoot" allowUnauth={this.toggleAllowUnauth} isAuth={this.state.allowUnauthorised}/>
         <div
-          class="fb-like"
+          className="fb-like"
           data-share="true"
           data-width="450"
           data-show-faces="true">

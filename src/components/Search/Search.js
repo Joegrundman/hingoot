@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {PropTypes, Component} from 'react'
 import TextField from 'material-ui/TextField'
 import RaisedButton from 'material-ui/RaisedButton'
 import CircularProgress from 'material-ui/CircularProgress'
 import axios from 'axios'
 import './Search.css'
 
-class Search extends React.Component {
+class Search extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -77,6 +77,11 @@ class Search extends React.Component {
             </div>
         )
     }
+}
+
+Search.propTypes = {
+    removeListings: PropTypes.func.isRequired,
+    onGetSearchResults: PropTypes.func.isRequired
 }
 
 export default Search

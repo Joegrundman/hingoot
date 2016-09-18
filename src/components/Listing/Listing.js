@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {PropTypes, Component} from 'react'
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import axios from 'axios'
 import './Listing.css'
 
-class Listing extends React.Component {
+class Listing extends Component {
     constructor(props) {
         super(props)
         this.handleClick = this.handleClick.bind(this)
@@ -45,6 +45,7 @@ class Listing extends React.Component {
              })
              .catch( (err) => {
                  console.log(err)
+                 // remove from production
                 //  this.setState({
                 //      votes: this.state.votes + 1
                 //  })
@@ -85,7 +86,7 @@ class Listing extends React.Component {
 }
 
 Listing.propTypes = {
-    
+    stats: PropTypes.object.isRequired
 }
 
 export default Listing

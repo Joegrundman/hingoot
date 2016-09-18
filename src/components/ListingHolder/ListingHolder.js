@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {PropTypes, Component} from 'react'
 import PureRenderMixin from 'react-addons-pure-render-mixin'
 import Listing from '../Listing/Listing'
 import './ListingHolder.css'
 
-class ListingHolder extends React.Component {
+class ListingHolder extends Component {
     constructor (props) {
         super(props)
         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
@@ -22,6 +22,13 @@ class ListingHolder extends React.Component {
             </div>
         )
     }
+}
+
+ListingHolder.propTypes = {
+    results: PropTypes.arrayOf(
+                PropTypes.string,
+                PropTypes.number
+        ).isRequired
 }
 
 export default ListingHolder

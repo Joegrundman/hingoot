@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {PropTypes, Component} from 'react'
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
 import IconMenu from 'material-ui/IconMenu'
@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
-class Navbar extends React.Component {
+class Navbar extends Component {
     constructor(props) {
         super(props)
         this.handleAuthClick = this.handleAuthClick.bind(this)
@@ -39,6 +39,10 @@ class Navbar extends React.Component {
             />
         )
     }
+}
+
+Navbar.propTypes = {
+    allowUnauth: PropTypes.bool.isRequired
 }
 
 export default Navbar
