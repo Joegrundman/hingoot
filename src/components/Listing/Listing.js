@@ -84,4 +84,8 @@ class Listing extends React.Component {
     }
 }
 
+Listing.propTypes = {
+    
+}
+
 export default Listing

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Search from '../Search/Search'
-import ListingContainer from '../ListingContainer/ListingContainer'
+import ListingHolder from '../ListingHolder/ListingHolder'
 import Navbar from '../Navbar/Navbar'
 import YelpLogo from '../YelpLogo/YelpLogo'
 import './App.css'
-
+// import {setListings} from '../../store/actions'
 
 class App extends Component {
   constructor(props) {
@@ -15,6 +15,7 @@ class App extends Component {
       isLoggedIn: false,
       allowUnauthorised: false     
     }
+
     this.toggleAllowUnauth = this.toggleAllowUnauth.bind(this)
     this.removeListings = this.removeListings.bind(this)
     this.handleSearchResults = this.handleSearchResults.bind(this)
@@ -36,16 +37,28 @@ class App extends Component {
     var places
     // remove tempdata possiblity for production
     if (!data) {
+      console.log('using tempdata')
       places = this.props.tempData
+      console.log('places', places)
+      // store.dispatch({
+      //   type: 'SET_LISTINGS',
+      //   listings: this.props.tempData
+      // })
+
     } else {
       places = data.data
+      // store.dispatch({
+      //   type: 'SET_LISTINGS',
+      //   listings: data.data
+      // })
     }
     //remove this for production
-   // places.forEach(d => console.log(d))
-   this.setState({
-      pristine: false,
-      results: places
+    places.forEach(d => console.log(d))
+    this.setState({
+        pristine: false,
+        results: places
     })
+
  
   }
 
@@ -65,7 +78,7 @@ class App extends Component {
           onGetSearchResults={this.handleSearchResults}
           removeListings={this.removeListings} />
         <br />
-        {this.state.pristine ? '': <ListingContainer results={this.state.results} />}
+        {this.state.pristine ? '': <ListingHolder results={this.state.results} />}
       
         <br />
         <br />
@@ -76,3 +89,5 @@ class App extends Component {
 }
 
 export default App
+
+

@@ -25,6 +25,7 @@
     "material-ui": "^0.15.4",
     "moment": "^2.15.0",
     "react": "^15.3.1",
+    "react-addons-pure-render-mixin": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-facebook-login-component": "^0.5.2",
     "react-redux": "^4.4.5",
