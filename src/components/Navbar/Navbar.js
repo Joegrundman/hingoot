@@ -42,7 +42,7 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-    allowUnauth: PropTypes.bool.isRequired
+    allowUnauth: PropTypes.func.isRequired
 }
 
 export default Navbar
