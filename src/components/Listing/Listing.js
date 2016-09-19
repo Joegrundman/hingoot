@@ -2,6 +2,7 @@ import React, {PropTypes, Component} from 'react'
 import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
 import axios from 'axios'
+import FacebookHandler from '../FacebookHandler/FacebookHandler'
 import './Listing.css'
 
 class Listing extends Component {
@@ -10,7 +11,8 @@ class Listing extends Component {
         this.handleClick = this.handleClick.bind(this)
         this.state = {
             votes: 0,
-            alreadyVoted: false
+            alreadyVoted: false,
+            showFacebook: false,
         }
     }
 
@@ -28,7 +30,23 @@ class Listing extends Component {
         // if not auth got to fb login (or use unauthorised)
         // if auth, check to see if already voted. If so, decrement
         // otherwise increment
-        const tz = new Date().getTimezoneOffset()
+        if (!this.props.needsAuth || this.props.fbAuth ) {
+            this.setState({
+                showFacebook: false
+            })
+            this.callServer()
+        } else {
+            this.setState({
+                showFacebook: true
+            })
+        }
+
+      
+    }
+
+    callServer () {
+        // new date getTimezoneOffset returns minutes and with ahead as minus
+        const tz = -(new Date().getTimezoneOffset() /60) 
  
         axios.get(`/going/${this.props.stats.id}.${tz}`)
              .then(data => {
@@ -45,10 +63,11 @@ class Listing extends Component {
              })
              .catch( (err) => {
                  console.log(err)
+                 console.log('going clicked')
                  // remove from production
-                //  this.setState({
-                //      votes: this.state.votes + 1
-                //  })
+                 this.setState({
+                     votes: this.state.votes + 1
+                 })
              } )
     }
 
@@ -56,6 +75,7 @@ class Listing extends Component {
         return (
           <div className="Listing">  
             <Card>
+                {this.state.showFacebook ? <FacebookHandler />: null}
                 <CardHeader 
                 avatar={this.props.stats.snippet_image_url}
                 title={this.props.stats.name}
@@ -86,7 +106,9 @@ class Listing extends Component {
 }
 
 Listing.propTypes = {
-    stats: PropTypes.object.isRequired
+    stats: PropTypes.object.isRequired,
+    needsAuth: PropTypes.bool.isRequired,
+    fbAuth: PropTypes.bool.isRequired
 }
 
 export default Listing

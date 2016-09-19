@@ -13,7 +13,9 @@ class ListingHolder extends Component {
      let listings = this.props.results.map((res, i) => (
         <Listing 
           key={i} 
-          stats={res} 
+          stats={res}
+          needsAuth={this.props.needsAuth}
+          fbAuth={this.props.fbAuth} 
         />))
 
         return (
@@ -25,10 +27,9 @@ class ListingHolder extends Component {
 }
 
 ListingHolder.propTypes = {
-    results: PropTypes.arrayOf(
-                PropTypes.string,
-                PropTypes.number
-        ).isRequired
+    results: PropTypes.array.isRequired,
+    needsAuth: PropTypes.bool.isRequired,
+    fbAuth: PropTypes.bool.isRequired
 }
 
 export default ListingHolder

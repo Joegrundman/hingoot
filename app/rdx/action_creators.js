@@ -1,23 +1,3 @@
-// export function addEntry(entry) {
-//     return { entry, type: 'ADD_ENTRY'}
-// }
-
-// export function deleteEntry(entry) {
-//     return { entry, type: 'DELETE_ENTRY'}
-// }
-
-// export function increment(entry) {
-//     return { entry, type: 'INCREMENT_VOTE'}
-// }
-
-// export function decrement(entry) {
-//     return { entry, type: 'DECREMENT_VOTE'}
-// }
-
-// export function incrementOrAddEntry(entry) {
-//     return { entry, type: 'INCREMENT_OR_ADD_ENTRY'}
-// }
-
 module.exports = {
     initState: function initState() {
         return {type: 'INIT_STATE'}
@@ -38,7 +18,7 @@ module.exports = {
     incrementOrAddEntry: function incrementOrAddEntry(entry) {
         return { entry, type: 'INCREMENT_OR_ADD_ENTRY'}
     },
-    cleanUpStore: function cleanUpStore(){
-        return {type: 'CLEAN_UP_STORE'}
+    cleanUpStore: function cleanUpStore(day, hrs){
+        return {day, hrs, type: 'CLEAN_UP_STORE'}
     }    
 }

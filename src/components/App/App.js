@@ -12,12 +12,22 @@ class App extends Component {
     this.state = {
       pristine:true,
       isLoggedIn: false,
-      allowUnauthorised: false     
+      needsAuth: true,
+      fbAuth: false     
     }
 
     this.toggleAllowUnauth = this.toggleAllowUnauth.bind(this)
     this.removeListings = this.removeListings.bind(this)
     this.handleSearchResults = this.handleSearchResults.bind(this)
+  }
+
+  componentDidMount () {
+    if(window.localStorage['hingoot-fbloggedin']){
+      const fbAuth = JSON.parse(window.localStorage['hingoot-fbloggedin'])
+      this.setState({ fbAuth })
+    } else {
+      this.setState({fbAuth: false})
+    }
   }
 
   removeListings () {
@@ -28,7 +38,7 @@ class App extends Component {
 
   toggleAllowUnauth() {
     this.setState({
-      allowUnauthorised: !this.state.allowUnauthorised
+      needsAuth: !this.state.needsAuth
     })
   }
 
@@ -48,28 +58,26 @@ class App extends Component {
     this.setState({
         pristine: false,
         results: places
-    })
-
- 
+    }) 
   }
 
   render() {
     return (
       <div className="App">
-        <Navbar title="Hingoot" allowUnauth={this.toggleAllowUnauth} isAuth={this.state.allowUnauthorised}/>
-        <div
-          className="fb-like"
-          data-share="true"
-          data-width="450"
-          data-show-faces="true">
-        </div>
+        <Navbar title="Hingoot" 
+                toggleAllowUnauth={this.toggleAllowUnauth} 
+                needsAuth={this.state.needsAuth}/>
+
         <h2>Fae ya gannin oot 'e neet ya hingoot?</h2>
         <h5>Your Scottish Nightlife Coordinator</h5>
         <Search 
           onGetSearchResults={this.handleSearchResults}
           removeListings={this.removeListings} />
         <br />
-        {this.state.pristine ? '': <ListingHolder results={this.state.results} />}
+        {this.state.pristine ? '': <ListingHolder 
+                                      results={this.state.results} 
+                                      needsAuth={this.state.needsAuth} 
+                                      fbAuth={this.state.fbAuth} />}
       
         <br />
         <br />

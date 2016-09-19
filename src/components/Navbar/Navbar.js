@@ -13,14 +13,16 @@ class Navbar extends Component {
     }
 
     handleAuthClick(){
-        this.props.allowUnauth()
+        this.props.toggleAllowUnauth()
     }
 
     render () {
         return (
             <AppBar 
                 title={this.props.title}
-                iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+                iconElementLeft={
+                    <IconButton><NavigationClose /></IconButton>
+                }
                 iconElementRight={
                 <IconMenu
                     iconButtonElement={
@@ -29,11 +31,8 @@ class Navbar extends Component {
                     targetOrigin={{horizontal: 'right', vertical: 'top'}}
                     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                 >
-                    <MenuItem primaryText="Refresh" />
                     <MenuItem primaryText="Help" />
-                    <MenuItem primaryText="Log in" />
-                    <MenuItem primaryText="Sign out" />
-                    <MenuItem primaryText={this.props.allowUnauth ? "require auth" : "allow unauth" } onClick={this.handleAuthClick}/>
+                    <MenuItem primaryText={this.props.needsAuth ? "Allow Unauth" : "Require Auth" } onClick={this.handleAuthClick}/>
                 </IconMenu>
                      }
             />
@@ -42,7 +41,8 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-    allowUnauth: PropTypes.func.isRequired
+    toggleAllowUnauth: PropTypes.func.isRequired,
+    needsAuth: PropTypes.bool.isRequired
 }
 
 export default Navbar

@@ -27,7 +27,7 @@
     "react": "^15.3.1",
     "react-addons-pure-render-mixin": "^15.3.1",
     "react-dom": "^15.3.1",
-    "react-facebook-login-component": "^0.5.2",
+    "react-facebook-login": "^3.2.0",
     "react-redux": "^4.4.5",
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.5.2",

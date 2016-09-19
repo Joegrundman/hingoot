@@ -1,8 +1,12 @@
+
+
 add fb login
     login goes on button push
 
 add localstorage of already voted
     if voted than a second button click will remove vote choice
+        -- actually not sure if this is needed now
+        -- we can use client internal state to control already voted
 
 add socketio for live update
     -worry about or fix the problem with insecure actions being fired
@@ -29,9 +33,11 @@ on webpage
 
 add jwt login service for non fb users?
     could be hassle, but statefull jwt means we don't need to store server details
+    -- not necesary, just removed fb requirment ads option
 
-add twitter login and friends finder?
-    requires selecting login method and default, maybe just stick to fb
 
-add disable authorization feature
+app close button
+    --this is not needed since is not an app
+    --unless want to make an app
+
 
