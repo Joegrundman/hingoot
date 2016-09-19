@@ -10,10 +10,15 @@ class Navbar extends Component {
     constructor(props) {
         super(props)
         this.handleAuthClick = this.handleAuthClick.bind(this)
+        this.handleLogout = this.handleLogout.bind(this)
     }
 
     handleAuthClick(){
         this.props.toggleAllowUnauth()
+    }
+
+    handleLogout() {
+        this.props.logoutFacebook()
     }
 
     render () {
@@ -32,6 +37,7 @@ class Navbar extends Component {
                     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                 >
                     <MenuItem primaryText="Help" />
+                    {this.props.isLoggedIn ? <MenuItem primaryText="Log out of FB" onClick={this.handleLogout} />}
                     <MenuItem primaryText={this.props.needsAuth ? "Allow Unauth" : "Require Auth" } onClick={this.handleAuthClick}/>
                 </IconMenu>
                      }
@@ -42,7 +48,9 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
     toggleAllowUnauth: PropTypes.func.isRequired,
-    needsAuth: PropTypes.bool.isRequired
+    logoutFacebook: PropTypes.func.isRequired,
+    needsAuth: PropTypes.bool.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired
 }
 
 export default Navbar

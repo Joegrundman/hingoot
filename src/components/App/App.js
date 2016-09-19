@@ -36,6 +36,10 @@ class App extends Component {
     })
   }
 
+  logoutFacebook () {
+    console.log('logging out of facebook')
+  }
+
   toggleAllowUnauth() {
     this.setState({
       needsAuth: !this.state.needsAuth
@@ -66,7 +70,9 @@ class App extends Component {
       <div className="App">
         <Navbar title="Hingoot" 
                 toggleAllowUnauth={this.toggleAllowUnauth} 
-                needsAuth={this.state.needsAuth}/>
+                logoutFacebook={this.logoutFacebook}
+                needsAuth={this.state.needsAuth}
+                isLoggedIn={this.state.isLoggedIn}/>
 
         <h2>Fae ya gannin oot 'e neet ya hingoot?</h2>
         <h5>Your Scottish Nightlife Coordinator</h5>
