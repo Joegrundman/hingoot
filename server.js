@@ -48,8 +48,9 @@ setInterval(() => {
     const timeNow = new Date()
     const day = timeNow.getDate()
     const hrs = timeNow.getHrs()
-    
+
     cleanUpStore(day, hrs)
+    console.log('server called cleanUpStore at time', timeNow)
 }, hourly)
 
 // access the react app
