@@ -30,8 +30,7 @@ class Search extends Component {
         let searchReq = encodeURIComponent(this.state.searchTerm)
         axios.get(`/yelp/${searchReq}`)
             .then(res => {
-                console.log('success search')
-                
+
                 this.setState({
                     loadingAjax: false,
                     searchTerm: ''

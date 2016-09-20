@@ -3,8 +3,8 @@ import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
 import IconMenu from 'material-ui/IconMenu'
 import MenuItem from 'material-ui/MenuItem'
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+import NavigationClose from 'material-ui/svg-icons/navigation/close'
 
 class Navbar extends Component {
     constructor(props) {
@@ -37,7 +37,6 @@ class Navbar extends Component {
                     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                 >
                     <MenuItem primaryText="Help" />
-                    {this.props.isLoggedIn ? <MenuItem primaryText="Log out of FB" onClick={this.handleLogout} />}
                     <MenuItem primaryText={this.props.needsAuth ? "Allow Unauth" : "Require Auth" } onClick={this.handleAuthClick}/>
                 </IconMenu>
                      }
@@ -48,7 +47,6 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
     toggleAllowUnauth: PropTypes.func.isRequired,
-    logoutFacebook: PropTypes.func.isRequired,
     needsAuth: PropTypes.bool.isRequired,
     isLoggedIn: PropTypes.bool.isRequired
 }

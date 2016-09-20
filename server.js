@@ -41,17 +41,27 @@ var app = express()
  */
 const store = makeStore()
 
+
+
 // automated clean up function called every hour to remove out of 
 // date entries in the store
-const hourly = 3600000 // in ms
+// polling every five mins to see if hour has changed will prevent long time slide 
+// in the interval if we use that alone. 
+// At most there will be a 5 minute delay, which is acceptable for this purpose
+
+const currentHr = 0 // initialise current hour
+const everyFiveMins = 300000 // in ms
+
 setInterval(() => {
     const timeNow = new Date()
     const day = timeNow.getDate()
     const hrs = timeNow.getHrs()
-
-    cleanUpStore(day, hrs)
-    console.log('server called cleanUpStore at time', timeNow)
-}, hourly)
+    if (hrs !== currentHr) {
+        currentHr = hrs
+        cleanUpStore(day, hrs)
+        console.log('server called cleanUpStore at time', timeNow)
+    }
+},everyFiveMins)
 
 // access the react app
 app.use(express.static('build/'))

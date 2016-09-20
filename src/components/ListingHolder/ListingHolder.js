@@ -16,6 +16,8 @@ class ListingHolder extends Component {
           stats={res}
           needsAuth={this.props.needsAuth}
           fbAuth={this.props.fbAuth} 
+          toggleAllowUnauth={this.props.toggleAllowUnauth}
+          onFbLogin={this.props.onFbLogin}
         />))
 
         return (
@@ -29,7 +31,9 @@ class ListingHolder extends Component {
 ListingHolder.propTypes = {
     results: PropTypes.array.isRequired,
     needsAuth: PropTypes.bool.isRequired,
-    fbAuth: PropTypes.bool.isRequired
+    fbAuth: PropTypes.bool.isRequired,
+    onFbLogin: PropTypes.func.isRequired,
+    toggleAllowUnauth: PropTypes.func.isRequired
 }
 
 export default ListingHolder

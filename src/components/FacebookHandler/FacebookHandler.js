@@ -1,15 +1,34 @@
 import React from 'react'
 import FacebookLogin from 'react-facebook-login'
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
+
 
 class FacebookHandler extends React.Component {
     constructor(props, context){
         super (props, context)
+        this.state = {
+            open: true
+        }
+        this.handleClose = this.handleClose.bind(this)
         this.componentClicked = this.componentClicked.bind(this)
         this.responseFacebook = this.responseFacebook.bind(this)
     }
 
+    handleOpen () {
+        this.setState({ open: true })
+    }
+
+    handleClose() {
+        this.setState({
+            open: false
+        })
+    }
+
     responseFacebook(response) {
         console.log(response)
+        this.handleClose()
+        this.props.onFbLogin()
     }
 
     componentClicked(){
@@ -17,21 +36,44 @@ class FacebookHandler extends React.Component {
     }
 
     render () {
-        const fb = (<FacebookLogin 
+
+        const actions = [
+            <FacebookLogin 
                     appId="1578557435779440"
                     scope="public_profile,email"
                     autoLoad={true}
-                    size="small"
+                    size="medium"
                     fields="name, email, picture"
                     onClick={this.componentClicked}
                     callback={this.responseFacebook}
-                    />)
+                    />,
+            <FlatButton
+                label="Cancel"
+                primary={true}
+                onTouchTap={this.handleClose}
+            />,
+            <FlatButton
+                label="No Auth"
+                primary={true}
+                keyboardFocused={true}
+                onTouchTap={this.props.toggleAllowUnauth}
+            />
+        ]
+
         return (
             <div>
-                {fb}
+                <Dialog
+                    title="Login with Facebook"
+                    actions={actions}
+                    modal={false}
+                    open={this.state.open}
+                    onRequestClose={this.handleClose}>
+                    Or select No Auth to bypass Facebook login
+                </Dialog>
             </div>
         )
     }
 }
+
 
 export default FacebookHandler

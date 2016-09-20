@@ -19,6 +19,7 @@ class App extends Component {
     this.toggleAllowUnauth = this.toggleAllowUnauth.bind(this)
     this.removeListings = this.removeListings.bind(this)
     this.handleSearchResults = this.handleSearchResults.bind(this)
+    this.handleFbLogin = this.handleFbLogin.bind(this)
   }
 
   componentDidMount () {
@@ -40,6 +41,13 @@ class App extends Component {
     console.log('logging out of facebook')
   }
 
+  handleFbLogin () {
+    this.setState({
+      isLoggedIn: true,
+      needsAuth: false
+      })
+  }
+
   toggleAllowUnauth() {
     this.setState({
       needsAuth: !this.state.needsAuth
@@ -50,15 +58,10 @@ class App extends Component {
     var places
     // remove tempdata possiblity for production
     if (!data) {
-      console.log('using tempdata')
       places = this.props.tempData
-      console.log('places', places)
-
     } else {
       places = data.data
     }
-    //remove this for production
-    places.forEach(d => console.log(d))
     this.setState({
         pristine: false,
         results: places
@@ -70,7 +73,6 @@ class App extends Component {
       <div className="App">
         <Navbar title="Hingoot" 
                 toggleAllowUnauth={this.toggleAllowUnauth} 
-                logoutFacebook={this.logoutFacebook}
                 needsAuth={this.state.needsAuth}
                 isLoggedIn={this.state.isLoggedIn}/>
 
@@ -83,6 +85,8 @@ class App extends Component {
         {this.state.pristine ? '': <ListingHolder 
                                       results={this.state.results} 
                                       needsAuth={this.state.needsAuth} 
+                                      onFbLogin={this.handleFbLogin}
+                                      toggleAllowUnauth={this.toggleAllowUnauth}
                                       fbAuth={this.state.fbAuth} />}
       
         <br />

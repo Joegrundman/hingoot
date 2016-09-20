@@ -9,9 +9,10 @@ class Listing extends Component {
     constructor(props) {
         super(props)
         this.handleClick = this.handleClick.bind(this)
+        this.onFbLogin = this.onFbLogin.bind(this)
         this.state = {
             votes: 0,
-            alreadyVoted: false,
+            isGoing: false,
             showFacebook: false,
         }
     }
@@ -25,6 +26,12 @@ class Listing extends Component {
         //otherwise read and set state in Listing
     }
 
+    onFbLogin () {
+        this.setState({
+            showFacebook: false
+        }, this.props.onFbLogin())
+    }
+
     handleClick() {
         // TODO: check to see if authenticated
         // if not auth got to fb login (or use unauthorised)
@@ -34,7 +41,12 @@ class Listing extends Component {
             this.setState({
                 showFacebook: false
             })
-            this.callServer()
+            if (this.state.isGoing) {
+                this.callServer('notgoing')
+            } else {
+                this.callServer('going')
+            }
+
         } else {
             this.setState({
                 showFacebook: true
@@ -44,11 +56,11 @@ class Listing extends Component {
       
     }
 
-    callServer () {
+    callServer (target) {
         // new date getTimezoneOffset returns minutes and with ahead as minus
         const tz = -(new Date().getTimezoneOffset() /60) 
  
-        axios.get(`/going/${this.props.stats.id}.${tz}`)
+        axios.get(`/${target}/${this.props.stats.id}.${tz}`)
              .then(data => {
                 //  console.log('++++',data.data)
                  var votes = data.data.votes
@@ -56,10 +68,18 @@ class Listing extends Component {
 
                 //TODO: add local storage on already voted and time
 
-                 this.setState({
-                     votes: JSON.parse(votes),
-                     alreadyVoted: true
-                 })
+                if(target === 'going'){
+                    this.setState({
+                        votes: JSON.parse(votes),
+                        isGoing: true
+                    })
+                } else if (target === 'notgoing') {
+                    this.setState({
+                        votes: JSON.parse(votes),
+                        isGoing: false
+                    })
+                }
+
              })
              .catch( (err) => {
                  console.log(err)
@@ -75,7 +95,9 @@ class Listing extends Component {
         return (
           <div className="Listing">  
             <Card>
-                {this.state.showFacebook ? <FacebookHandler />: null}
+                {this.state.showFacebook ? <FacebookHandler 
+                    handleLogin={this.onFbLogin} 
+                    toggleAllowUnauth={this.props.toggleAllowUnauth} />: null}
                 <CardHeader 
                 avatar={this.props.stats.snippet_image_url}
                 title={this.props.stats.name}
@@ -108,7 +130,8 @@ class Listing extends Component {
 Listing.propTypes = {
     stats: PropTypes.object.isRequired,
     needsAuth: PropTypes.bool.isRequired,
-    fbAuth: PropTypes.bool.isRequired
+    fbAuth: PropTypes.bool.isRequired,
+    toggleAllowUnauth: PropTypes.func.isRequired
 }
 
 export default Listing
