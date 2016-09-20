@@ -9,16 +9,12 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close'
 class Navbar extends Component {
     constructor(props) {
         super(props)
+
         this.handleAuthClick = this.handleAuthClick.bind(this)
-        this.handleLogout = this.handleLogout.bind(this)
     }
 
     handleAuthClick(){
         this.props.toggleAllowUnauth()
-    }
-
-    handleLogout() {
-        this.props.logoutFacebook()
     }
 
     render () {
@@ -36,7 +32,7 @@ class Navbar extends Component {
                     targetOrigin={{horizontal: 'right', vertical: 'top'}}
                     anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                 >
-                    <MenuItem primaryText="Help" />
+                    <MenuItem primaryText="Help" onClick={this.props.toggleShowHelp}/>
                     <MenuItem primaryText={this.props.needsAuth ? "Allow Unauth" : "Require Auth" } onClick={this.handleAuthClick}/>
                 </IconMenu>
                      }
