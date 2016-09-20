@@ -106,7 +106,6 @@ app.get('/yelp/:searchResult', function(req, res) {
 app.get('/going/:id.:timezone', (req, res) => {
     var id = decodeURIComponent(req.params.id)
     var time = decodeURIComponent(req.params.timezone)
-    console.log('going to', id)
     store.dispatch(incrementOrAddEntry(id))  
 
     var votes = getEntryVotes(store.getState(), id)
@@ -117,7 +116,6 @@ app.get('/going/:id.:timezone', (req, res) => {
 app.get('/notgoing/:id.:timezone', (req, res) => {
     
     var id = decodeURIComponent(req.params.id)
-    console.log('not going to', id)
     store.dispatch(decrement(id))
     var votes = getEntryVotes(store.getState(), id)
     res.json({votes})

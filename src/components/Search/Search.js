@@ -38,14 +38,14 @@ class Search extends Component {
             })
             .catch(error => {
                 // simulates ajax delay - remove timeout function for production
-                setTimeout(() => {
+                // setTimeout(() => {
   
-                    this.setState({
-                        loadingAjax: false,
-                        searchTerm: ''
-                    },  this.props.onGetSearchResults())
+                //     this.setState({
+                //         loadingAjax: false,
+                //         searchTerm: ''
+                //     },  this.props.onGetSearchResults())
 
-                }, 2000)
+                // }, 2000)
           
                 console.log(error)
             })
