@@ -44,7 +44,8 @@ class App extends Component {
   handleFbLogin () {
     this.setState({
       isLoggedIn: true,
-      needsAuth: false
+      needsAuth: false,
+      fbAuth: true
       })
   }
 

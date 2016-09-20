@@ -9,7 +9,6 @@ class Listing extends Component {
     constructor(props) {
         super(props)
         this.handleClick = this.handleClick.bind(this)
-        this.onFbLogin = this.onFbLogin.bind(this)
         this.state = {
             votes: 0,
             isGoing: false,
@@ -26,11 +25,6 @@ class Listing extends Component {
         //otherwise read and set state in Listing
     }
 
-    onFbLogin () {
-        this.setState({
-            showFacebook: false
-        }, this.props.onFbLogin())
-    }
 
     handleClick() {
         // TODO: check to see if authenticated
@@ -94,7 +88,7 @@ class Listing extends Component {
           <div className="Listing">  
             <Card>
                 {this.state.showFacebook ? <FacebookHandler 
-                    handleLogin={this.onFbLogin} 
+                    handleLogin={this.props.onFbLogin} 
                     toggleAllowUnauth={this.props.toggleAllowUnauth} />: null}
                 <CardHeader 
                 avatar={this.props.stats.snippet_image_url}
