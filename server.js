@@ -53,9 +53,11 @@ const currentHr = 0 // initialise current hour
 const everyFiveMins = 300000 // in ms
 
 setInterval(() => {
+    console.log('polling for time')
     const timeNow = new Date()
     const day = timeNow.getDate()
-    const hrs = timeNow.getHrs()
+    const hrs = timeNow.getHours() - (timeNow.getTimezoneOffset / 60)
+    console.log('current time zone')
     if (hrs !== currentHr) {
         currentHr = hrs
         cleanUpStore(day, hrs)
