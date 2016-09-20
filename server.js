@@ -96,7 +96,6 @@ app.get('/yelp/:searchResult', function(req, res) {
             snippet_image_url: b.snippet_image_url,
             url: b.url
         }})
-        console.log(usefulData)
         res.json(usefulData)
     }).catch(function(err) {
         console.log(err)
@@ -107,7 +106,7 @@ app.get('/yelp/:searchResult', function(req, res) {
 app.get('/going/:id.:timezone', (req, res) => {
     var id = decodeURIComponent(req.params.id)
     var time = decodeURIComponent(req.params.timezone)
-
+    console.log('going to', id)
     store.dispatch(incrementOrAddEntry(id))  
 
     var votes = getEntryVotes(store.getState(), id)
@@ -115,8 +114,10 @@ app.get('/going/:id.:timezone', (req, res) => {
 })
 
 // handle changing mind about going
-app.get('/notgoing/:id/', (req, res) => {
+app.get('/notgoing/:id.:timezone', (req, res) => {
+    
     var id = decodeURIComponent(req.params.id)
+    console.log('not going to', id)
     store.dispatch(decrement(id))
     var votes = getEntryVotes(store.getState(), id)
     res.json({votes})

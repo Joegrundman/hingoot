@@ -48,7 +48,7 @@ module.exports = {
     decrement: function decrement(state, entry) {
         return state.map(x => {
             if(x.get('place') == entry){
-                return x.updateIn(['votes'], 0, votes => votes > 0 ? votes - 1 : votes)
+                return x.updateIn(['votes'], votes => votes - 1)
             } else {
                 return x
             }

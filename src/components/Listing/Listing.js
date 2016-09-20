@@ -85,9 +85,7 @@ class Listing extends Component {
                  console.log(err)
                  console.log('going clicked')
                  // remove from production
-                 this.setState({
-                     votes: this.state.votes + 1
-                 })
+
              } )
     }
 
@@ -107,7 +105,7 @@ class Listing extends Component {
                 <CardActions>
                     <FlatButton 
                     primary={true}
-                    label="Going?" 
+                    label={this.state.isGoing ? "Not Going?": "Going?"} 
                     onClick={this.handleClick}/>
                     <a href={this.props.stats.url} 
                        target="_blank" >
