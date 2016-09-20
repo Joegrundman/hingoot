@@ -55,7 +55,10 @@ module.exports = {
         })
     },
 
-    cleanUpStore: function cleanUpStore(state, day, hrs = 0) {   
+    cleanUpStore: function cleanUpStore(state, day, hrs) {  
+        if(!hrs) {
+            hrs = 0
+        } 
         return state.filter(x => {
             const tz = x.get('tz') || 0
             if (hrs + tz > 24) { 
