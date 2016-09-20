@@ -4,7 +4,7 @@
 node_modules
 
 # production change this between build and src depending on whether push to heroku (src) or github (build)
-src
+build
 
 # misc
 .DS_Store
