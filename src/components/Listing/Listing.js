@@ -88,7 +88,7 @@ class Listing extends Component {
           <div className="Listing">  
             <Card>
                 {this.state.showFacebook ? <FacebookHandler 
-                    handleLogin={this.props.onFbLogin} 
+                    onFbLogin={this.props.onFbLogin} 
                     toggleAllowUnauth={this.props.toggleAllowUnauth} />: null}
                 <CardHeader 
                 avatar={this.props.stats.snippet_image_url}
