@@ -32,9 +32,14 @@ class FacebookHandler extends React.Component {
     }
 
     responseFacebook(response) {
-        console.log(response)
-        this.handleClose()
-        this.props.onFbLogin()
+        console.log('logging in message',response)
+        if(response.status == "not authorized") {
+            console.log('rejected muthafucker')
+        } else {
+            console.log('yo were in')
+        }
+        // this.handleClose()
+        // this.props.onFbLogin()
     }
 
     componentClicked(){
