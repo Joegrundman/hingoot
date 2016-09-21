@@ -12,6 +12,7 @@ class Listing extends Component {
         this.state = {
             votes: 0,
             isGoing: false,
+            dateGoing: null,
             showFacebook: false,
         }
     }
@@ -31,6 +32,7 @@ class Listing extends Component {
         // if not auth got to fb login (or use unauthorised)
         // if auth, check to see if already voted. If so, decrement
         // otherwise increment
+
         if (!this.props.needsAuth || this.props.fbAuth ) {
             this.setState({
                 showFacebook: false
@@ -65,12 +67,14 @@ class Listing extends Component {
                 if(target === 'going'){
                     this.setState({
                         votes: JSON.parse(votes),
-                        isGoing: true
+                        isGoing: true,
+                        dateGoing: new Date().getDate()
                     })
                 } else if (target === 'notgoing') {
                     this.setState({
                         votes: JSON.parse(votes),
-                        isGoing: false
+                        isGoing: false,
+                        dateGoing: null
                     })
                 }
 
