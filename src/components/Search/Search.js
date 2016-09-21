@@ -10,7 +10,8 @@ class Search extends Component {
         super(props)
         this.state = {
             loadingAjax: false,
-            searchTerm: ''
+            searchTerm: '',
+            couldNotFind: false
         }
 
         this.handleSearchChange = this.handleSearchChange.bind(this)
@@ -20,14 +21,18 @@ class Search extends Component {
     handleSearchChange(e) {
         e.preventDefault()
         this.setState({
-            searchTerm: e.target.value
+            searchTerm: e.target.value,
+            couldNotFind: false
+
         })
     }
 
     handleSearchClick(e) {
         e.preventDefault()
-        this.props.removeListings()
         let searchReq = encodeURIComponent(this.state.searchTerm)
+        if(!searchReq || searchReq == '') { return }
+
+        this.props.removeListings()
         axios.get(`/yelp/${searchReq}`)
             .then(res => {
 
@@ -46,7 +51,11 @@ class Search extends Component {
                 //     },  this.props.onGetSearchResults())
 
                 // }, 2000)
-          
+                this.setState({
+                    loadingAjax: false,
+                    searchTerm: '',
+                    couldNotFind: true
+                })
                 console.log(error)
             })
         this.setState({loadingAjax:true})
@@ -73,6 +82,7 @@ class Search extends Component {
                     label="Submit" />
                     <br />
                 {this.state.loadingAjax ? <CircularProgress /> : null}
+                {this.state.couldNotFind ? 'Could Not Find Resource' : null}
             </div>
         )
     }

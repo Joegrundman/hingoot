@@ -1,7 +1,5 @@
 
-
-add fb login
-    login goes on button push
+need to auto remove if self is going
 
 add localstorage of already voted
     if voted than a second button click will remove vote choice

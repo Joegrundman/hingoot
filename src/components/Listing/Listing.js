@@ -123,7 +123,8 @@ Listing.propTypes = {
     stats: PropTypes.object.isRequired,
     needsAuth: PropTypes.bool.isRequired,
     fbAuth: PropTypes.bool.isRequired,
-    toggleAllowUnauth: PropTypes.func.isRequired
+    toggleAllowUnauth: PropTypes.func.isRequired,
+    onFbLogin: PropTypes.func.isRequired
 }
 
 export default Listing

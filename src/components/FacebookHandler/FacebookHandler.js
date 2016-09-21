@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {PropTypes, Component} from 'react'
 import FacebookLogin from 'react-facebook-login'
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 
 
-class FacebookHandler extends React.Component {
+class FacebookHandler extends Component {
     constructor(props, context){
         super (props, context)
         this.state = {
@@ -82,5 +82,9 @@ class FacebookHandler extends React.Component {
     }
 }
 
+FacebookHandler.propTypes = {
+    onFbLogin: PropTypes.func.isRequired,
+    toggleAllowUnauth: PropTypes.func.isRequired
+}
 
 export default FacebookHandler
