@@ -9,7 +9,7 @@ const style = {
     marginRight: "1em"
 }
 
-const Search = ({onSearchChange, onSearchClick, loadingAjax, couldNotFind}) => (
+const Search = ({onSearchChange, onSearchClick, loadingAjax, ajaxFail}) => (
     <div className="Search">
         <TextField
             style={style}
@@ -26,8 +26,8 @@ const Search = ({onSearchChange, onSearchClick, loadingAjax, couldNotFind}) => (
             primary={true}
             label="Submit" />
         <br />
-        {this.props.loadingAjax ? <CircularProgress /> : null}
-        {this.props.ajaxFail ? 'Could Not Get Resource': null}
+        {loadingAjax ? <CircularProgress /> : null}
+        {ajaxFail ? 'Could Not Get Resource': null}
     </div>
 )
 
@@ -36,6 +36,11 @@ Search.propTypes = {
     ajaxFail: PropTypes.bool.isRequired,
     onSearchChange: PropTypes.func.isRequired,
     onSearchClick: PropTypes.func.isRequired
+}
+
+Search.defaultProps = {
+    loadingAjax: false,
+    ajaxFail: false
 }
 
 export default Search
