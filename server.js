@@ -55,10 +55,11 @@ const everyFiveMins = 300000 // in ms
 setInterval(() => {
     console.log('polling for time')
     const timeNow = new Date()
+    const serverTimeZone = timeNow.getTimezoneOffset / 60
     const day = timeNow.getDate()
-    const hrs = timeNow.getHours() - (timeNow.getTimezoneOffset / 60)
-    console.log('current time zone')
-    if (hrs !== currentHr) {
+    const hrs = timeNow.getHours() - serverTimeZone
+    console.log('current timezone', -serverTimeZone)
+    if (hrs != currentHr) {
         currentHr = hrs
         cleanUpStore(day, hrs)
         console.log('server called cleanUpStore at time', timeNow)
