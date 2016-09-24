@@ -6,7 +6,8 @@ import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 // import App from './components/App/App';
 // import AppComp from './components/App/AppComp';
-import ConnectedApp from './containers/ConnectedApp';
+import AppContainer from './components/App/AppContainer';
+// import ConnectedApp from './containers/ConnectedApp';
 import reducer from './store/reducer'
 import './index.css';
 // import tempData from './tempdata'
@@ -19,15 +20,12 @@ const MainApp = () => (
 
     <MuiThemeProvider>
       <Provider store={store} >
-        <ConnectedApp />
+        <AppContainer />
       </Provider>
     </MuiThemeProvider>
  
 )
 
-// const MainApp = () => (
-//   <AppComp />
-// )
 
 const mountNode = document.getElementById('root')
 

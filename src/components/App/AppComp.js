@@ -1,8 +1,10 @@
 import React, {PropTypes} from 'react';
 // import Search from '../Search/SearchComp'
-import ConnectedSearch from '../../containers/ConnectedSearch'
+import SearchContainer from '../Search/SearchContainer'
+// import ConnectedSearch from '../../containers/ConnectedSearch'
 // import ListingHolder from '../ListingHolder/ListingHolder'
 // import Navbar from '../Navbar/NavbarComp'
+import NavbarContainer from '../Navbar/NavbarContainer'
 // import Help from '../Help/Help'
 import YelpLogo from '../YelpLogo/YelpLogo'
 import './App.css'
@@ -95,7 +97,7 @@ import './App.css'
 //   }
 // }
 
-const Navbar = () => (<h2> THIS IS A NAVBAR </h2>)
+// const Navbar = () => (<h2> THIS IS A NAVBAR </h2>)
 // const Search = () => (<h2> THIS IS A SEARCHBAR </h2>)
 const Help = () => (<h2> THIS IS A HELP PAGE </h2>)
 
@@ -104,11 +106,11 @@ const ListingHolder =( <h2> This is a ListingHolder </h2>)
 
 const AppComp = ({pristine, showHelp}) => (
       <div className="App">
-        <Navbar />
+        <NavbarContainer />
         <h2>Fae ya gannin oot 'e neet ya hingoot?</h2>
         <h5>Your Scottish Nightlife Coordinator</h5>
         {showHelp ? <Help /> : ''}
-        <ConnectedSearch  />
+        <SearchContainer  />
         <br />
         {pristine ? '': <ListingHolder  />}    
         <br />
