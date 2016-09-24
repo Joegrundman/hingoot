@@ -1,8 +1,9 @@
 // import {List, fromJS} from 'immutable'
 
-// export const toggleShowHelp = (state) => {
-//     return state.updateIn(['flags', 'showHelp'], s => !s)
-// } 
+export const toggleShowHelp = (state) => {
+    return state.updateIn(['flags', 'showHelp'], false, s => !s)
+} 
+
 
 // export const toggleAllowUnauth = (state) => {
 //     return state.upDateIn(['flags', 'allowUnauth'], s => !s)

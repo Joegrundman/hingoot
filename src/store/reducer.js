@@ -1,13 +1,13 @@
 import {Map} from 'immutable'
 
-// import {
+import {
 //     addCharToSearch,
 //     searchYelp,
 //     toggleAllowUnauth,
 //     togglePristine,
-//     toggleShowHelp,
+    toggleShowHelp,
 //     setListings
-// } from './core'
+} from './core'
 
 export default function (state = Map(), action) {
     switch(action.type) {
@@ -19,8 +19,8 @@ export default function (state = Map(), action) {
         //     return toggleAllowUnauth(state)
         // case 'TOGGLE_PRISTINE':
         //     return togglePristine(state)
-        // case 'TOGGLE_SHOW_HELP':
-        //     return toggleShowHelp(state)
+        case 'TOGGLE_SHOW_HELP':
+            return toggleShowHelp(state)
         // case 'SET_LISTINGS':
         //     return setListings(state, action.listings)
         default: return state
