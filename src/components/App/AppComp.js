@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 // import Search from '../Search/SearchComp'
+import ConnectedSearch from '../../containers/ConnectedSearch'
 // import ListingHolder from '../ListingHolder/ListingHolder'
 // import Navbar from '../Navbar/NavbarComp'
 // import Help from '../Help/Help'
@@ -95,7 +96,7 @@ import './App.css'
 // }
 
 const Navbar = () => (<h2> THIS IS A NAVBAR </h2>)
-const Search = () => (<h2> THIS IS A SEARCHBAR </h2>)
+// const Search = () => (<h2> THIS IS A SEARCHBAR </h2>)
 const Help = () => (<h2> THIS IS A HELP PAGE </h2>)
 
 
@@ -107,7 +108,7 @@ const AppComp = ({pristine, showHelp}) => (
         <h2>Fae ya gannin oot 'e neet ya hingoot?</h2>
         <h5>Your Scottish Nightlife Coordinator</h5>
         {showHelp ? <Help /> : ''}
-        <Search  />
+        <ConnectedSearch  />
         <br />
         {pristine ? '': <ListingHolder  />}    
         <br />
