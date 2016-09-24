@@ -1,4 +1,4 @@
-import React, {PropTypes, Component} from 'react'
+import React, {PropTypes} from 'react'
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
 import IconMenu from 'material-ui/IconMenu'
@@ -8,7 +8,7 @@ import NavigationClose from 'material-ui/svg-icons/navigation/close'
 
 const Navbar = () => (
         <AppBar 
-        title={this.props.title}
+        title="Hingoot"
         iconElementLeft={
             <IconButton>
             <NavigationClose />

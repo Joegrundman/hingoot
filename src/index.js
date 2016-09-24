@@ -4,22 +4,30 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import injectTapEventPlugin  from 'react-tap-event-plugin'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
-import App from './components/App/App';
+// import App from './components/App/App';
+// import AppComp from './components/App/AppComp';
+import ConnectedApp from './containers/ConnectedApp';
 import reducer from './store/reducer'
 import './index.css';
-import tempData from './tempdata'
+// import tempData from './tempdata'
 
 injectTapEventPlugin()
 
 const store = createStore(reducer)
 
 const MainApp = () => (
-  <Provider store={store} >
+
     <MuiThemeProvider>
-      <App tempData={tempData} />
+      <Provider store={store} >
+        <ConnectedApp />
+      </Provider>
     </MuiThemeProvider>
-  </Provider>
+ 
 )
+
+// const MainApp = () => (
+//   <AppComp />
+// )
 
 const mountNode = document.getElementById('root')
 

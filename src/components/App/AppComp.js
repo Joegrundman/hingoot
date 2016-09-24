@@ -1,8 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import Search from '../Search/Search'
-import ListingHolder from '../ListingHolder/ListingHolder'
-import Navbar from '../Navbar/Navbar'
-import Help from '../Help/Help'
+import React, {PropTypes} from 'react';
+// import Search from '../Search/SearchComp'
+// import ListingHolder from '../ListingHolder/ListingHolder'
+// import Navbar from '../Navbar/NavbarComp'
+// import Help from '../Help/Help'
 import YelpLogo from '../YelpLogo/YelpLogo'
 import './App.css'
 
@@ -23,7 +23,7 @@ import './App.css'
     // this.removeListings = this.removeListings.bind(this)
     // this.handleSearchResults = this.handleSearchResults.bind(this)
     // this.handleFbLogin = this.handleFbLogin.bind(this)
-  }
+ // }
 
 //   componentDidMount () {
 //     if(window.localStorage['hingoot-fbloggedin']){
@@ -94,31 +94,39 @@ import './App.css'
 //   }
 // }
 
-const App = () => (
-      <div className="App">
-        <Navbar title="Hingoot" />
+const Navbar = () => (<h2> THIS IS A NAVBAR </h2>)
+const Search = () => (<h2> THIS IS A SEARCHBAR </h2>)
+const Help = () => (<h2> THIS IS A HELP PAGE </h2>)
 
+
+const ListingHolder =( <h2> This is a ListingHolder </h2>)
+
+const AppComp = ({pristine, showHelp}) => (
+      <div className="App">
+        <Navbar />
         <h2>Fae ya gannin oot 'e neet ya hingoot?</h2>
         <h5>Your Scottish Nightlife Coordinator</h5>
-        {this.props.showHelp ? <Help isOpen={this.props.showHelp} /> : ''}
+        {showHelp ? <Help /> : ''}
         <Search  />
         <br />
-        {this.state.pristine ? '': <ListingHolder  results={this.props.results}  />}
-      
+        {pristine ? '': <ListingHolder  />}    
         <br />
         <br />
         <YelpLogo />
       </div>
     )
 
-App.propTypes = {
+
+AppComp.propTypes = {
     pristine: PropTypes.bool.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired,
-    needsAuth: PropTypes.bool.isRequired,
-    results: PropTypes.object,
     showHelp: PropTypes.bool.isRequired,
 }
 
-export default App
+AppComp.defaultProps = {
+  pristine: true,
+  showHelp: false
+}
+
+export default AppComp
 
 

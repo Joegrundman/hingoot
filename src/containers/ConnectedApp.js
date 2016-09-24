@@ -1,22 +1,16 @@
 import {connect} from 'react-redux'
-import {} from '../store/actions'
 import App from '../components/App/AppComp'
 
-const mapStateToProps = () => {
-    return {
 
+const mapStateToProps = (state) => {
+    return {
+        pristine: state.getIn(['flags', 'pristine']),
+        showHelp: state.getIn(['flags', 'pristine']),
     }
 }
 
-const mapDispatchToProps = () => {
-    return {
-
-    }
-}
-
-const ConnectedApp = (
-    mapStateToProps,
-    mapDispatchToProps
+const ConnectedApp = connect(
+    mapStateToProps
 )(App)
 
 export default ConnectedApp
