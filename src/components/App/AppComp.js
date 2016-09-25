@@ -4,6 +4,7 @@ import SearchContainer from '../Search/SearchContainer'
 // import ConnectedSearch from '../../containers/ConnectedSearch'
 // import ListingHolder from '../ListingHolder/ListingHolder'
 // import Navbar from '../Navbar/NavbarComp'
+import ListingHolderContainer from '../ListingHolder/ListingHolderContainer'
 import NavbarContainer from '../Navbar/NavbarContainer'
 // import Help from '../Help/Help'
 import HelpContainer from '../Help/HelpContainer'
@@ -103,9 +104,7 @@ import './App.css'
 // const Help = () => (<h2> THIS IS A HELP PAGE </h2>)
 
 
-const ListingHolder =( <h2> This is a ListingHolder </h2>)
-
-const AppComp = ({pristine, showHelp}) => (
+const AppComp = ({showListings}) => (
       <div className="App">
         <NavbarContainer />
         <h2>Fae ya gannin oot 'e neet ya hingoot?</h2>
@@ -113,7 +112,7 @@ const AppComp = ({pristine, showHelp}) => (
         <HelpContainer />
         <SearchContainer  />
         <br />
-        {pristine ? '': <ListingHolder  />}    
+        {showListings ? <ListingHolderContainer  /> : null}    
         <br />
         <br />
         <YelpLogo />
@@ -122,11 +121,11 @@ const AppComp = ({pristine, showHelp}) => (
 
 
 AppComp.propTypes = {
-    pristine: PropTypes.bool.isRequired
+    showListings: PropTypes.bool.isRequired
 }
 
 AppComp.defaultProps = {
-  pristine: true
+  showListings: false
 }
 
 export default AppComp

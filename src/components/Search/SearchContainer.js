@@ -1,21 +1,24 @@
 import {connect} from 'react-redux'
-import {addCharToSearch, searchYelp} from '../../store/actions'
+import {addCharToSearch, toggleAjaxFail, fetchListings} from '../../store/actions'
 import Search from './SearchComp'
 
 const mapStateToProps = (state) => {
     return {
-       loadingAjax: state.loadingAjax,
-       ajaxFail: state.ajaxFail
+       isFetching: state.getIn(['flags', 'isFetching']),
+       ajaxFail: state.getIn(['flags', 'ajaxFail'])
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         onSearchChange: (e) => {
-            dispatch(addCharToSearch(e))
+            dispatch(addCharToSearch(e.target.value))
         },
-        onSearchClick: () => {
-            dispatch(searchYelp())
+        onSearchClick: (e) => {
+            if(ownProps.ajaxFail){
+                dispatch(setAjaxFail(false))
+            }
+            dispatch(fetchListings())
         }
     }
 }

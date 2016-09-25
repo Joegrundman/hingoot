@@ -4,7 +4,7 @@ import App from './AppComp'
 
 const mapStateToProps = (state) => {
     return {
-        pristine: state.getIn(['flags', 'pristine'])
+        showListings: state.getIn(['flags', 'showListings'])
     }
 }
 

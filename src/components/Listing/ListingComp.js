@@ -1,8 +1,7 @@
-import React, {PropTypes, Component} from 'react'
-import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card'
+import React, {PropTypes} from 'react'
+import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
-import axios from 'axios'
-import FacebookHandler from '../FacebookHandler/FacebookHandler'
+import FacebookHandler from '../FacebookHandler/FacebookHandlerContainer'
 import './Listing.css'
 
 // class Listing extends Component {
@@ -134,47 +133,44 @@ import './Listing.css'
 // export default Listing
 
 
-const Listing = () => {
+const Listing = ({stats, showFacebook, handleListingClick }) => (
            <div className="Listing">  
             <Card>
-                {this.props.showFacebook ? <FacebookHandler 
-                    onFbLogin={this.props.onFbLogin} 
-                    toggleAllowUnauth={this.props.toggleAllowUnauth} />: null}
+                {showFacebook ? <FacebookHandler />: null}
                 <CardHeader 
-                avatar={this.props.stats.snippet_image_url}
-                title={this.props.stats.name}
-                subtitle={"going: " + this.props.stats.votes }
+                avatar={stats.snippet_image_url}
+                title={stats.name}
+                subtitle={"Number going: " + (stats.votes || 0)}
                 actAsExpander={false} 
                 showExpandableButton={false} />
                 <CardActions>
                     <FlatButton 
                     primary={true}
-                    label={this.props.stats.isGoing ? "Not Going?": "Going?"} 
-                    onClick={this.props.handleListingClick}/>
-                    <a href={this.props.stats.url} 
+                    label={stats.isGoing ? "Not Going?": "Going?"} 
+                    onClick={handleListingClick}/>
+                    <a href={stats.url} 
                        target="_blank" >
                         <FlatButton 
                         primary={true}
                         label="Go to Yelp" />
                     </a>
-
                 </CardActions>
                 <CardText expandable={false} >
-                {this.props.stats.snippet_text}
+                {stats.snippet_text}
                 </CardText>
             </Card>
             <br />
         </div>   
-}
+)
 
 Listing.propTypes = {
-    stats: PropTypes.object.isRequired,
-    needsAuth: PropTypes.bool.isRequired,
-    fbAuth: PropTypes.bool.isRequired,
-    toggleAllowUnauth: PropTypes.func.isRequired,
+    stats: PropTypes.object.isRequired, // passed down from ListingContainer
     handleListingClick: PropTypes.func.isRequired,
-    onFbLogin: PropTypes.func.isRequired,
     showFacebook: PropTypes.bool.isRequired
+}
+
+Listing.defaultProps = {
+    showFacebook: false
 }
 
 export default Listing

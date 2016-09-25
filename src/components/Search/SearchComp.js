@@ -9,37 +9,38 @@ const style = {
     marginRight: "1em"
 }
 
-const Search = ({onSearchChange, onSearchClick, loadingAjax, ajaxFail}) => (
+const Search = ({onSearchChange, onSearchClick, isFetching, ajaxFail}) => (
     <div className="Search">
         <TextField
             style={style}
             floatingLabelText="location"
             onChange={e => {
                 e.preventDefault()
-                onSearchChange()
+                onSearchChange(e)
             }} />
         <RaisedButton
             onClick={e => {
                 e.preventDefault()
-                onSearchClick()
+                onSearchClick(e)
             }}
             primary={true}
             label="Submit" />
         <br />
-        {loadingAjax ? <CircularProgress /> : null}
+        {isFetching ? <CircularProgress /> : null}
         {ajaxFail ? 'Could Not Get Resource': null}
     </div>
 )
 
+
 Search.propTypes = {
-    loadingAjax: PropTypes.bool.isRequired,
+    isFetching: PropTypes.bool.isRequired,
     ajaxFail: PropTypes.bool.isRequired,
     onSearchChange: PropTypes.func.isRequired,
     onSearchClick: PropTypes.func.isRequired
 }
 
 Search.defaultProps = {
-    loadingAjax: false,
+    isFetching: false,
     ajaxFail: false
 }
 

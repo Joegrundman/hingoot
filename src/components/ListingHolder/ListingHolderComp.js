@@ -1,52 +1,21 @@
-import React, {PropTypes, Component} from 'react'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import Listing from '../Listing/Listing'
+import React, {PropTypes} from 'react'
+import Listing from '../Listing/ListingComp'
 import './ListingHolder.css'
 
-// class ListingHolder extends Component {
-//     constructor (props) {
-//         super(props)
-//         this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this)
-//     }
-    
-//     render () {
+/**
+ * ListingHolder is container for Lists. The data from yelp has to be injected here and mapped onto the listings
+ */
 
-//      let listings = this.props.results.map((res, i) => (
-//         <Listing 
-//           key={i} 
-//           stats={res}
-//           needsAuth={this.props.needsAuth}
-//           fbAuth={this.props.fbAuth} 
-//           toggleAllowUnauth={this.props.toggleAllowUnauth}
-//           onFbLogin={this.props.onFbLogin}
-//         />))
-
-//         return (
-//             <div className="ListingHolder">
-//                 {listings}
-//             </div>
-//         )
-//     }
-// }
-
-const listings = this.props.results.map((res, i) => {
-    <Listing 
-        key={i}
-        stats={res} />
-})
-
-const ListingHolder = () => (
+const ListingHolder = ({listings}) => (
     <div className="ListingHolder">
-        {listings}
+        {listings.map((listing, i) => (
+            <Listing key={i} stats={listing} />)
+        )}
     </div>
 )
 
 ListingHolder.propTypes = {
-    results: PropTypes.array.isRequired,
-    needsAuth: PropTypes.bool.isRequired,
-    fbAuth: PropTypes.bool.isRequired,
-    onFbLogin: PropTypes.func.isRequired,
-    toggleAllowUnauth: PropTypes.func.isRequired
+    listings: PropTypes.array,
 }
 
 export default ListingHolder
