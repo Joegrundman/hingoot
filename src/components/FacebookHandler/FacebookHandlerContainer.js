@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import {setFbDialogToOpen, toggleAllowUnauth} from '../../store/actions'
-import FacebookHandler from './FacebookHandlerComp'
+import FacebookHandler from './FacebookHandler'
 
 const mapStateToProps = state => {
     return {

@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import {handleListingClick} from '../../store/actions'
-import Listing from './ListingComp'
+import Listing from './Listing'
 
 const mapStateToProps = (state) => {
     return {
@@ -8,15 +8,18 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (state, ownProps) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        handleListingClick: () => {
-            dispatch(handleListingClick(ownProps.stats.id))
+        handleListingClick: (e) => {
+            e.preventDefault()
+            dispatch(handleListingClick(ownProps.stats.id, ownProps.stats.votes, ownProps.stats.isGoing))
         }
     }
 }
 
-const ConnectedListing = connect(
+const ListingContainer = connect(
     mapStateToProps,
     mapDispatchToProps
 )(Listing)
+
+export default ListingContainer

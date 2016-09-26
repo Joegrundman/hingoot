@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react'
-import Listing from '../Listing/ListingComp'
+import ListingContainer from '../Listing/ListingContainer'
 import './ListingHolder.css'
 
 /**
@@ -9,7 +9,7 @@ import './ListingHolder.css'
 const ListingHolder = ({listings}) => (
     <div className="ListingHolder">
         {listings.map((listing, i) => (
-            <Listing key={i} stats={listing} />)
+            <ListingContainer key={i} stats={listing} />)
         )}
     </div>
 )

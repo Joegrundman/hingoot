@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
-import {addCharToSearch, toggleAjaxFail, fetchListings} from '../../store/actions'
-import Search from './SearchComp'
+import {addCharToSearch, setAjaxFail, fetchListings} from '../../store/actions'
+import Search from './Search'
 
 const mapStateToProps = (state) => {
     return {

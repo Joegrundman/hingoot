@@ -8,6 +8,8 @@ const YelpLogo = () => (
     <div className="YelpLogo">
         <small> Powered by </small>
         <img className="YelpLogo-img" src={imgUrl} alt="Yelp Logo" />
+        <br />
+        <small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
     </div> 
     )
 

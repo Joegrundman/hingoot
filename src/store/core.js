@@ -2,13 +2,28 @@ export const toggleShowHelp = (state) => {
     return state.updateIn(['flags', 'showHelp'], false, s => !s)
 } 
 
-
-// export const toggleAllowUnauth = (state) => {
-//     return state.upDateIn(['flags', 'allowUnauth'], s => !s)
-// }
+export const toggleAllowUnauth = (state) => {
+    return state.upDateIn(['flags', 'allowUnauth'], s => !s)
+}
 
 export const showListings = (state, status) => {
     return state.updateIn(['flags', 'showListings'], false, s => status)
+}
+
+export const setVotesOnListing = (listingState, listingId, votes) => {
+    return listingState.map(l => {
+        if(l.id === listingId) {
+            l.votes = votes
+        }
+        return l
+    })
+}
+
+export const setIsGoingOnListing = (state, listingId, status) => {
+    return state.update('listings', listings => listings.map(l => {
+        if(l.id === listingId){ l['isGoing'] = status }
+        return l
+    }))
 }
 
 export const setAjaxFail = (state, status) => {

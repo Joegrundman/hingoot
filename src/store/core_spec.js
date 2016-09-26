@@ -1,10 +1,17 @@
 import {List, Map} from 'immutable'
 import {expect} from 'chai'
-import {} from './core'
+import {
+    toggleAllowUnauth,
+    toggleShowHelp,
+    showListings,
+    setVotesOnListing,
+    
+
+} from './core'
 
 describe('client-side reducer core functions', () => {
     describe('flag toggles', () => {
-        describe('toggleallowUnauth', () => {
+        describe('toggleAllowUnauth', () => {
             it ('should reverse the allowUnauth toggle when the action is fired using the appropiate actions', () => {
                 const state = Map({
                     flags: Map({

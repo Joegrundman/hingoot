@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import Navbar from './NavbarComp'
+import Navbar from './Navbar'
 import {toggleAllowUnauth, toggleShowHelp} from '../../store/actions'
 
 const mapStateToProps = (state) => {

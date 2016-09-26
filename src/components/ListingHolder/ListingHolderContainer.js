@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import ListingHolder from './ListingHolderComp'
+import ListingHolder from './ListingHolder'
 
 const mapStateToProps = (state) => {
     return {

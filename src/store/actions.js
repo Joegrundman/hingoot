@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+const isDev = process.env.NODE_ENV === "development"
 import tempData from '../tempdata'
 
 // constant declarations
@@ -80,6 +81,22 @@ export const setListings = (listings) => {
     }
 }
 
+export const setVotesOnListing = (listingId, votes) => {
+    return {
+        type: 'SET_VOTES_ON_LISTING',
+        listingId,
+        votes
+    }
+}
+
+export const setIsGoingOnListing = (listingId, status) => {
+    return {
+        type: 'SET_IS_GOING_ON_LISTING',
+        listingId,
+        status
+    }
+}
+
 export const onFetchSuccess = () => {
     return {
         type: 'ON_FETCH_SUCCESS'
@@ -88,7 +105,7 @@ export const onFetchSuccess = () => {
 
 export const onFetchFail = () => {
     return {
-        type: 'ON_FETCH_FAIL'    
+        type: 'ON_FETCH_FAIL'
     }
 }
 
@@ -106,12 +123,7 @@ export const receiveListings = (jsonData) => {
     }
 }
 
-export const handleListingClick = listing => {
-    return {
-        type: 'HANDLE_LISTING_CLICK',
-        listing
-    }
-}
+
 
 export const setFbDialogToOpen = status => {
     return {
@@ -124,41 +136,94 @@ export const setFbDialogToOpen = status => {
 
 export function fetchListings(searchTerm) {
     return function (dispatch) {
-        
-        // dispatch(toggleFetchingAjax())
-        // window.setTimeout(() => {
 
-        //         dispatch(toggleFetchingAjax())
-        //         dispatch(setListings(tempData))
-        //         dispatch(showListings(true))
+        if (isDev) {
+            dispatch(toggleFetchingAjax())
+            window.setTimeout(() => {
 
-        //     }, 1000
-        // )
-
-        dispatch(requestListings(searchTerm))
-        return axios.get(`/search/${searchTerm}`)
-            .then(res => res.json())
-            .then(json => {
                 dispatch(toggleFetchingAjax())
-                dispatch(receiveListings(json))
-            })
-            .catch(err => {
-                dispatch(toggleFetchingAjax() )
-                dispatch(setAjaxFail(true))
-                console.log(err)
-            })
+                dispatch(setListings(tempData))
+                dispatch(showListings(true))
+
+            }, 1000
+            )
+        } else {
+            dispatch(requestListings(searchTerm))
+            axios.get(`/search/${searchTerm}`)
+                .then(res => res.json())
+                .then(json => {
+                    dispatch(toggleFetchingAjax())
+                    dispatch(receiveListings(json))
+                })
+                .catch(err => {
+                    dispatch(toggleFetchingAjax())
+                    dispatch(setAjaxFail(true))
+                    console.log(err)
+                })
+        }
     }
 }
 
-export function goingTo (id) {
-    return function(dispatch) {
+export function handleListingClick (id, oldVotes, isGoing) {
+    return function(dispatch){
+        if(!isGoing) {
+            dispatch(goingTo(id, oldVotes))
+        } else {
+            dispatch(notGoingTo(id, oldVotes))
+        }
+    }
+
+}
+
+export function goingTo(id, oldVotes) {
+    if(isDev){
+        return function(dispatch){
+            let nextVotes
+            console.log("++++++++++++++++++++++")
+            console.log('oldVotes', oldVotes)
+            if(oldVotes === undefined) {
+                nextVotes = 1
+            } else {
+                nextVotes = oldVotes + 1
+            }
+            console.log('nextVotes', nextVotes)
+            window.setTimeout(() => {
+                dispatch(setVotesOnListing(id, nextVotes))
+            }, 500)
+            
+        }
+    } else {
+    const tz = -(new Date().getTimezoneOffset() / 60)
+    return function (dispatch) {
+        axios.get(`/going/${id}.${tz}`)
+            .then(data => {
+                const votes = JSON.parse(data.data.votes)
+                dispatch(setAjaxFail(false))
+                dispatch(setVotesOnListing(id, votes))
+                dispatch(setIsGoingOnListing(id, true))
+            })
+            .catch(err => {
+                console.log(err)
+                dispatch(setAjaxFail(true))
+            })
+        }
 
     }
 }
 
 export function notGoingTo(id) {
-    return function(dispatch){
-
+    return function (dispatch) {
+        axios.get(`/notGoing/${id}`)
+            .then(data => {
+                const votes = JSON.parse(data.data.votes)
+                dispatch(setAjaxFail(false))
+                dispatch(setVotesOnListing(id, votes))
+                dispatch(setIsGoingOnListing(id, false))
+            })
+            .catch(err => {
+                console.log(err)
+                dispatch(setAjaxFail(true))
+            })
     }
 }
 
