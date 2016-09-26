@@ -5,8 +5,11 @@ import Help from './Help'
 
 describe('<Help />', () => {
     let wrapper
+    const handleCloseHelp = () => console.log('closing help')
+    
     beforeEach(() => {
-        wrapper = shallow(<Help />)
+
+        wrapper = shallow(<Help handleCloseHelp={handleCloseHelp} />)
     })
     it('should render a Help component', () => {
         expect(wrapper).to.be.ok

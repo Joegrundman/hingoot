@@ -5,8 +5,9 @@ import Navbar from './Navbar'
 
 describe('<Navbar/>', () => {
     let wrapper
+    const mockFunc = () => console.log('mockfunc called')
     beforeEach(() => {
-        wrapper =  shallow(<Navbar />)
+        wrapper =  shallow(<Navbar toggleAllowUnauth={mockFunc} toggleShowHelp={mockFunc}/>)
     })
 
     it('should render a <Navbar/> component', () => {

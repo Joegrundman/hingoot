@@ -148,7 +148,7 @@ describe('application logic', () => {
                 Map({place: "The Railway", votes: 5})
             )   )            
         })
-        it('should ignore if there is no vote attribute', () => {
+        it('should return ignore if there is no vote attribute', () => {
             const state = List.of(
                 Map({place: "Boat House"}),
                 Map({place: "The Railway", votes: 5})

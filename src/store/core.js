@@ -3,7 +3,7 @@ export const toggleShowHelp = (state) => {
 } 
 
 export const toggleAllowUnauth = (state) => {
-    return state.upDateIn(['flags', 'allowUnauth'], s => !s)
+    return state.updateIn(['flags', 'allowUnauth'] ,false ,s => !s)
 }
 
 export const showListings = (state, status) => {
@@ -19,11 +19,11 @@ export const setVotesOnListing = (listingState, listingId, votes) => {
     })
 }
 
-export const setIsGoingOnListing = (state, listingId, status) => {
-    return state.update('listings', listings => listings.map(l => {
-        if(l.id === listingId){ l['isGoing'] = status }
+export const setIsGoingOnListing = (listingState, listingId, status) => {
+    return listingState.map(l => {
+        if(l.id === listingId){ l.isGoing = status }
         return l
-    }))
+    })
 }
 
 export const setAjaxFail = (state, status) => {
@@ -36,12 +36,6 @@ export const toggleFetchingAjax = state => {
 
 export const addCharToSearch = (state, str) => {
     return state.update('yelpSearchVal', '', s => str)
-}
-
-export const searchYelp = (state) => {
-    console.log('searching', state.get('yelpSearchVal'))
-    //TODO: we need to make ajax call, set results into state.listings and reset yelpsearch to empty
-    return state
 }
 
 export const setListings = (state, listings) => {

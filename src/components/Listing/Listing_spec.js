@@ -7,6 +7,7 @@ import Listing from './Listing'
 
 describe('<Listing />', () => {
     let wrapper
+    const mockFunc = () => {console.log('testfunc fired')}
     const mockStats = {
             snippet_img_url: 'imgurl',
             name: 'a place',
@@ -16,7 +17,7 @@ describe('<Listing />', () => {
         }
     
     beforeEach(() => {
-        wrapper = shallow(<Listing stats={mockStats}/>)
+        wrapper = shallow(<Listing stats={mockStats} handleListingClick={mockFunc} />)
     })
     it('should render a <Listing> component' , () => {
         expect(wrapper).to.be.ok

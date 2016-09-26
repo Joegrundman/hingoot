@@ -6,8 +6,9 @@ import Search from './Search'
 
 describe('<Search />', () => {
     let wrapper
+    const mockFunc = () => console.log('mockFunc called')
     beforeEach(() => {
-        wrapper = shallow(<Search />)
+        wrapper = shallow(<Search onSearchChange={mockFunc} onSearchClick={mockFunc} />)
     })
     it('should render a <Search /> component', () => {
         expect(wrapper).to.be.ok

@@ -1,8 +1,6 @@
 const Immutable = require('immutable')
 const Map = Immutable.Map
 const List = Immutable.List
-// const moment = require('moment')
-
 
 module.exports = {
     INITIAL_STATE : List(),
@@ -48,7 +46,12 @@ module.exports = {
     decrement: function decrement(state, entry) {
         return state.map(x => {
             if(x.get('place') == entry){
-                return x.updateIn(['votes'], votes => votes - 1)
+                return x.update('votes', 0, votes => {
+                    if(votes === 0) {
+                        return 0
+                    }
+                    return votes - 1
+                })
             } else {
                 return x
             }
