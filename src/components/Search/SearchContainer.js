@@ -5,27 +5,35 @@ import Search from './Search'
 const mapStateToProps = (state) => {
     return {
        isFetching: state.getIn(['flags', 'isFetching']),
-       ajaxFail: state.getIn(['flags', 'ajaxFail'])
+       ajaxFail: state.getIn(['flags', 'ajaxFail']),
+       yelpSearchVal: state.get('yelpSearchVal')
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+    const {isFetching, ajaxFail, yelpSearchVal} = stateProps
+    const {dispatch} = dispatchProps
+    const {} = ownProps
+
     return {
+        ...stateProps,
+        ...ownProps,
         onSearchChange: (e) => {
             dispatch(addCharToSearch(e.target.value))
         },
-        onSearchClick: (e) => {
-            if(ownProps.ajaxFail){
-                dispatch(setAjaxFail(false))
-            }
-            dispatch(fetchListings())
+        onSearchClick: () => {
+            const query = yelpSearchVal
+            if(query === '') { return }
+            dispatch(setAjaxFail(false))
+            dispatch(fetchListings(query))
         }
     }
 }
 
 const SearchContainer = connect(
     mapStateToProps,
-    mapDispatchToProps
+    null,
+    mergeProps
 )(Search)
 
 export default SearchContainer

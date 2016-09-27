@@ -10,17 +10,17 @@ const Listing = ({stats, showFacebook, handleListingClick }) => (
             <Card>
                 {showFacebook ? <FacebookHandler />: null}
                 <CardHeader 
-                avatar={stats.snippet_image_url}
-                title={stats.name}
-                subtitle={"Number going: " + (stats.votes || 0)}
+                avatar={stats.get('snippet_image_url')}
+                title={stats.get('name')}
+                subtitle={"Number going: " + (stats.get('votes') || 0)}
                 actAsExpander={false} 
                 showExpandableButton={false} />
                 <CardActions>
                     <FlatButton 
                     primary={true}
-                    label={stats.isGoing ? "Not Going?": "Going?"} 
+                    label={stats.get('isGoing') ? "Not Going?": "Going?"} 
                     onClick={handleListingClick}/>
-                    <a href={stats.url} 
+                    <a href={stats.get('url')} 
                        target="_blank" >
                         <FlatButton 
                         primary={true}
@@ -28,7 +28,7 @@ const Listing = ({stats, showFacebook, handleListingClick }) => (
                     </a>
                 </CardActions>
                 <CardText expandable={false} >
-                {stats.snippet_text}
+                {stats.get('snippet_text')}
                 </CardText>
             </Card>
             <br />

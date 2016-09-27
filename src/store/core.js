@@ -1,3 +1,5 @@
+import {List, fromJS} from 'immutable'
+
 export const toggleShowHelp = (state) => {
     return state.updateIn(['flags', 'showHelp'], false, s => !s)
 } 
@@ -10,10 +12,11 @@ export const showListings = (state, status) => {
     return state.updateIn(['flags', 'showListings'], false, s => status)
 }
 
-export const setVotesOnListing = (listingState, listingId, votes) => {
+export const setVotesOnListing = (listingState, listingId, newVotes) => {
+    console.log(listingState, listingId, newVotes)
     return listingState.map(l => {
-        if(l.id === listingId) {
-            l.votes = votes
+        if(l.get('id') === listingId) {
+            return l.update('votes', 0 , votes => newVotes)
         }
         return l
     })
@@ -21,7 +24,9 @@ export const setVotesOnListing = (listingState, listingId, votes) => {
 
 export const setIsGoingOnListing = (listingState, listingId, status) => {
     return listingState.map(l => {
-        if(l.id === listingId){ l.isGoing = status }
+        if(l.get('id') === listingId){ 
+            return l.update('isGoing', false, s => status) 
+        }
         return l
     })
 }
@@ -39,7 +44,7 @@ export const addCharToSearch = (state, str) => {
 }
 
 export const setListings = (state, listings) => {
-    return state.update('listings', [], l => listings)
+    return state.update('listings', List(), l => fromJS(listings))
 }
 
 export const setFbDialogToOpen = (state, status) => {

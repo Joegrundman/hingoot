@@ -9,10 +9,13 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+    const id = ownProps.stats.get('id')
+    const votes = ownProps.stats.get('votes')
+    const isGoing = ownProps.stats.get('isGoing')
     return {
         handleListingClick: (e) => {
             e.preventDefault()
-            dispatch(handleListingClick(ownProps.stats.id, ownProps.stats.votes, ownProps.stats.isGoing))
+            dispatch(handleListingClick(id, votes, isGoing))
         }
     }
 }

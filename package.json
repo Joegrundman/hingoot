@@ -12,6 +12,7 @@
     "chai-immutable": "^1.6.0",
     "dotenv": "^2.0.0",
     "enzyme": "^2.4.1",
+    "foreman": "^2.0.0",
     "ignore-styles": "^5.0.1",
     "jsdom": "^9.5.0",
     "mocha": "^3.0.2",

@@ -9,11 +9,12 @@ const style = {
     marginRight: "1em"
 }
 
-const Search = ({onSearchChange, onSearchClick, isFetching, ajaxFail}) => (
+const Search = ({onSearchChange, onSearchClick, isFetching, ajaxFail, yelpSearchVal}) => (
     <div className="Search">
         <TextField
             style={style}
             floatingLabelText="location"
+            value={yelpSearchVal}
             onChange={e => {
                 e.preventDefault()
                 onSearchChange(e)
@@ -35,13 +36,15 @@ const Search = ({onSearchChange, onSearchClick, isFetching, ajaxFail}) => (
 Search.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     ajaxFail: PropTypes.bool.isRequired,
+    yelpSearchVal: PropTypes.string.isRequired,
     onSearchChange: PropTypes.func.isRequired,
     onSearchClick: PropTypes.func.isRequired
 }
 
 Search.defaultProps = {
     isFetching: false,
-    ajaxFail: false
+    ajaxFail: false,
+    yelpSearchVal: ''
 }
 
 export default Search

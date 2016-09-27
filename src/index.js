@@ -6,19 +6,17 @@ import {createStore, applyMiddleware} from 'redux'
 import {Provider} from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
 import createLogger from 'redux-logger'
-// import App from './components/App/App';
-// import AppComp from './components/App/AppComp';
 import AppContainer from './components/App/AppContainer';
-// import ConnectedApp from './containers/ConnectedApp';
 import reducer from './store/reducer'
-// import {withActionLogging} from './store/middleware'
 import './index.css';
-// import tempData from './tempdata'
+
+const isDev = process.env.NODE_ENV === "development"
 
 injectTapEventPlugin()
 
-const loggerMiddleware = createLogger()
 
+var loggerMiddleware = createLogger()
+if (!isDev) {loggerMiddleware = state => next => action => next(action)}
 const createStoreWithMiddleware = applyMiddleware(
   thunkMiddleware,
   loggerMiddleware

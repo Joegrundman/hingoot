@@ -26,16 +26,6 @@ add possibilty of identifying fb friends who are going to the same place
                 if matching friends ids, sends data about matching friends
     -possibilty
 
-on webpage
-    remove functionality from navbar except signout from facebook
-
-add jwt login service for non fb users?
-    could be hassle, but statefull jwt means we don't need to store server details
-    -- not necesary, just removed fb requirment ads option
-
-
-app close button
-    --this is not needed since is not an app
-    --unless want to make an app
+- when going to add fb userid to array. your fb login will also send your friends list and return any matches
 
 

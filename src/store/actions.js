@@ -109,22 +109,6 @@ export const onFetchFail = () => {
     }
 }
 
-export const requestListings = () => {
-    return {
-        type: 'REQUEST_LISTINGS'
-    }
-}
-
-export const receiveListings = (jsonData) => {
-    return {
-        type: 'RECEIVE_LISTINGS',
-        listings: JSON.parse(jsonData),
-        receivedAt: Date.now()
-    }
-}
-
-
-
 export const setFbDialogToOpen = status => {
     return {
         type: 'SET_FB_DIALOG_TO_OPEN',
@@ -134,9 +118,8 @@ export const setFbDialogToOpen = status => {
 
 // thunks
 
-export function fetchListings(searchTerm) {
+export function fetchListings(query) {
     return function (dispatch) {
-
         if (isDev) {
             dispatch(toggleFetchingAjax())
             window.setTimeout(() => {
@@ -148,12 +131,13 @@ export function fetchListings(searchTerm) {
             }, 1000
             )
         } else {
-            dispatch(requestListings(searchTerm))
-            axios.get(`/search/${searchTerm}`)
-                .then(res => res.json())
+            dispatch(toggleFetchingAjax())
+            axios.get(`/search?q=${query}`)
                 .then(json => {
+                    var data = json.data
                     dispatch(toggleFetchingAjax())
-                    dispatch(receiveListings(json))
+                    dispatch(setListings(data))
+                    dispatch(showListings(true))
                 })
                 .catch(err => {
                     dispatch(toggleFetchingAjax())
@@ -164,66 +148,81 @@ export function fetchListings(searchTerm) {
     }
 }
 
-export function handleListingClick (id, oldVotes, isGoing) {
-    return function(dispatch){
-        if(!isGoing) {
+export function handleListingClick(id, oldVotes, isGoing) {
+    return function (dispatch) {
+        if (!isGoing) {
             dispatch(goingTo(id, oldVotes))
+            dispatch(setIsGoingOnListing(id, true))
         } else {
             dispatch(notGoingTo(id, oldVotes))
+            dispatch(setIsGoingOnListing(id, false))
         }
     }
 
 }
 
 export function goingTo(id, oldVotes) {
-    if(isDev){
-        return function(dispatch){
+    if (isDev) {
+        return function (dispatch) {
             let nextVotes
-            console.log("++++++++++++++++++++++")
-            console.log('oldVotes', oldVotes)
-            if(oldVotes === undefined) {
+            if (oldVotes === undefined) {
                 nextVotes = 1
             } else {
                 nextVotes = oldVotes + 1
             }
-            console.log('nextVotes', nextVotes)
             window.setTimeout(() => {
                 dispatch(setVotesOnListing(id, nextVotes))
             }, 500)
-            
+
         }
     } else {
-    const tz = -(new Date().getTimezoneOffset() / 60)
-    return function (dispatch) {
-        axios.get(`/going/${id}.${tz}`)
-            .then(data => {
-                const votes = JSON.parse(data.data.votes)
-                dispatch(setAjaxFail(false))
-                dispatch(setVotesOnListing(id, votes))
-                dispatch(setIsGoingOnListing(id, true))
-            })
-            .catch(err => {
-                console.log(err)
-                dispatch(setAjaxFail(true))
-            })
+        const tz = -(new Date().getTimezoneOffset() / 60)
+        return function (dispatch) {
+            axios.get(`/going/${id}/${tz}`)
+                .then(data => {
+                    const votes = JSON.parse(data.data.votes)
+                    dispatch(setAjaxFail(false))
+                    dispatch(setVotesOnListing(id, votes))
+                })
+                .catch(err => {
+                    console.log(err)
+                    dispatch(setAjaxFail(true))
+                })
         }
 
     }
 }
 
-export function notGoingTo(id) {
-    return function (dispatch) {
-        axios.get(`/notGoing/${id}`)
-            .then(data => {
-                const votes = JSON.parse(data.data.votes)
-                dispatch(setAjaxFail(false))
-                dispatch(setVotesOnListing(id, votes))
-                dispatch(setIsGoingOnListing(id, false))
-            })
-            .catch(err => {
-                console.log(err)
-                dispatch(setAjaxFail(true))
-            })
+export function notGoingTo(id, oldVotes) {
+    if (isDev) {
+        return function (dispatch) {
+            let nextVotes
+            if (oldVotes === undefined) {
+                nextVotes = 0
+            } else if (oldVotes === 0) {
+                nextVotes = 0
+            } else {
+                nextVotes = oldVotes - 1
+            }
+            window.setTimeout(() => {
+                dispatch(setVotesOnListing(id, nextVotes))
+
+            }, 500)
+
+        }
+    } else {
+        return function (dispatch) {
+            axios.get(`/notgoing/${id}`)
+                .then(data => {
+                    const votes = JSON.parse(data.data.votes)
+                    dispatch(setAjaxFail(false))
+                    dispatch(setVotesOnListing(id, votes))
+                })
+                .catch(err => {
+                    console.log(err)
+                    dispatch(setAjaxFail(true))
+                })
+        }
     }
 }
 

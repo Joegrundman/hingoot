@@ -49,7 +49,7 @@ const store = makeStore()
 // in the interval if we use that alone. 
 // At most there will be a 5 minute delay, which is acceptable for this purpose
 
-const currentHr = 0 // initialise current hour
+var currentHr = 0 // initialise current hour
 const everyFiveMins = 300000 // in ms
 
 setInterval(() => {
@@ -79,10 +79,18 @@ app.get('/', function(req, res){
 })
 
 // handle incoming search request
-app.get('/yelp/:searchResult', function(req, res) {
+app.get('/search', function(req, res) {
 
-    var location = decodeURIComponent(req.params.searchResult).replace(/\s/g, '+')
+    const param = req.query.q
 
+    if(!param) {
+        res.json({
+            error: 'Missing required parameter "q"'
+        })
+        return
+    }
+
+    var location = decodeURIComponent(param).replace(/\s/g, '+')
     yelp.search({
         term: 'nightlife',
         location: location,
@@ -106,7 +114,7 @@ app.get('/yelp/:searchResult', function(req, res) {
 })
 
 // handle going to request
-app.get('/going/:id.:timezone', (req, res) => {
+app.get('/going/:id/:timezone', (req, res) => {
     var id = decodeURIComponent(req.params.id)
     var time = decodeURIComponent(req.params.timezone)
     store.dispatch(incrementOrAddEntry(id))  
@@ -116,7 +124,7 @@ app.get('/going/:id.:timezone', (req, res) => {
 })
 
 // handle changing mind about going
-app.get('/notgoing/:id.:timezone', (req, res) => {
+app.get('/notgoing/:id', (req, res) => {
     
     var id = decodeURIComponent(req.params.id)
     store.dispatch(decrement(id))

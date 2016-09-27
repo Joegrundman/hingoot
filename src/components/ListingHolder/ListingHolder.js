@@ -15,7 +15,7 @@ const ListingHolder = ({listings}) => (
 )
 
 ListingHolder.propTypes = {
-    listings: PropTypes.array,
+    listings: PropTypes.object,
 }
 
 export default ListingHolder

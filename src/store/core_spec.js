@@ -1,4 +1,4 @@
-import {List, Map} from 'immutable'
+import {List, Map, fromJS} from 'immutable'
 import {expect} from 'chai'
 import {
     toggleAllowUnauth,
@@ -125,6 +125,14 @@ describe('client-side reducer core functions', () => {
             expect(nextState.get('listings')).to.equal(listings)
         })
 
+        it('should convert js to immutable', () => {
+            const listings = [{ place: 'Boat House' },{ place: 'The Gate' }]
+            const nextState = setListings(Map(), listings)
+            expect(nextState.get('listings')).to.equal(List.of(
+                Map({ place: 'Boat House' }), Map({ place: 'The Gate' })
+            ))
+        })
+
         it('should replace existing listings with a new set', () => {
             const state = Map({
                 listings: [{ place: 'Boat House' }, { place: 'The Gate' }]
@@ -133,34 +141,34 @@ describe('client-side reducer core functions', () => {
             const nextState = setListings(state, listings)
 
             expect(nextState.get('listings'))
-                .to.equal(listings)
+                .to.equal(fromJS(listings))
         })
     })
 
     describe('setVotesOnListing', () => {
         it('should add a votes attribute to a listing element', () => {
-            const listingState = [{ id: 'a' }, { id: 'b', votes: 3 }]
+            const listingState = List.of(Map({id: 'a'}), Map({id: 'b', votes: 3}))
             const nextState = setVotesOnListing(listingState, 'a', 1)
-            expect(JSON.stringify(nextState)).to.equal(JSON.stringify([{ id: 'a', votes: 1 }, { id: 'b', votes: 3 }]))
+            expect(nextState).to.equal(fromJS([{ id: 'a', votes: 1 }, { id: 'b', votes: 3 }]))
         })
 
         it('should change the votes attribute on a listing element', () => {
-            const listingState = [{ id: 'a' }, { id: 'b', votes: 3 }]
+            const listingState = fromJS([{ id: 'a' }, { id: 'b', votes: 3 }])
             const nextState = setVotesOnListing(listingState, 'b', 4)
-            expect(JSON.stringify(nextState)).to.equal(JSON.stringify([{ id: 'a' }, { id: 'b', votes: 4 }]))
+            expect(nextState).to.equal(fromJS([{ id: 'a' }, { id: 'b', votes: 4 }]))
         })
     })
 
     describe('setIsGoingOnListing', () => {
         it('should add an isGoing attribute to a listing element', () => {
-            const listingState = [{ id: 'a' }, { id: 'b', votes: 3 }]
+            const listingState = fromJS([{ id: 'a' }, { id: 'b', votes: 3 }])
             const nextState = setIsGoingOnListing(listingState, 'b', true)
-            expect(JSON.stringify(nextState)).to.equal(JSON.stringify([{ id: 'a' }, { id: 'b', votes: 3, isGoing: true }]))
+            expect(nextState).to.equal(fromJS([{ id: 'a' }, { id: 'b', votes: 3, isGoing: true }]))
         })
         it('should add set an isGoing element to false when status is false', () => {
-            const listingState = [{ id: 'a' }, { id: 'b', votes: 3, isGoing: true }]
+            const listingState = fromJS([{ id: 'a' }, { id: 'b', votes: 3, isGoing: true }])
             const nextState = setIsGoingOnListing(listingState, 'b', false)
-            expect(JSON.stringify(nextState)).to.equal(JSON.stringify([{ id: 'a' }, { id: 'b', votes: 3, isGoing: false }]))
+            expect(nextState).to.equal(fromJS([{ id: 'a' }, { id: 'b', votes: 3, isGoing: false }]))
 
         })
     })

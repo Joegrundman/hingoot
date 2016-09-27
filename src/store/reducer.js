@@ -19,10 +19,10 @@ export default function (state = Map(), action) {
             return addCharToSearch(state, action.str)
         case 'SET_VOTES_ON_LISTING':
             return state.update('listings', 
-                listing => setVotesOnListing(listingState, action.listingId, action.votes))
+                listingState => setVotesOnListing(listingState, action.listingId, action.votes))
         case 'SET_IS_GOING_ON_LISTING': 
             return state.update('listings', 
-                listing => setIsGoingOnListing(listingState, action.listingId, action.status))
+                listingState => setIsGoingOnListing(listingState, action.listingId, action.status))
         case 'TOGGLE_ALLOW_UNAUTH':
             return toggleAllowUnauth(state)
         case 'SHOW_LISTINGS': 
