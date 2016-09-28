@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem'
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import NavigationClose from 'material-ui/svg-icons/navigation/close'
 
-const Navbar = ({toggleAllowUnauth, toggleShowHelp, needsAuth}) => (
+const Navbar = ({toggleAllowUnauth, toggleShowHelp, allowUnauth}) => (
         <AppBar 
         title="Hingoot"
         iconElementLeft={
@@ -25,20 +25,20 @@ const Navbar = ({toggleAllowUnauth, toggleShowHelp, needsAuth}) => (
             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
         >
             <MenuItem primaryText="Help" onClick={toggleShowHelp}/>
-            <MenuItem primaryText={needsAuth ? "Allow Unauth" : "Require Auth" } onClick={toggleAllowUnauth}/>
+            <MenuItem primaryText={allowUnauth ? "Require Auth": "Allow Unauth" } onClick={toggleAllowUnauth}/>
         </IconMenu>
         }
     />
 )
 
 Navbar.propTypes = {
-    needsAuth: PropTypes.bool.isRequired,
+    allowUnauth: PropTypes.bool.isRequired,
     toggleAllowUnauth: PropTypes.func.isRequired,
     toggleShowHelp: PropTypes.func.isRequired
 }
 
 Navbar.defaultProps = {
-    needsAuth: true
+    allowUnauth: false
 }
 
 export default Navbar

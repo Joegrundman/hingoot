@@ -23,6 +23,7 @@ const mapDispatchToProps = dispatch => {
         },
         toggleAllowUnauth: () => {
             dispatch(toggleAllowUnauth())
+            dispatch(setFbDialogToOpen(false))
         },
         handleFbDialogClose: () => {
             dispatch(setFbDialogToOpen(false))

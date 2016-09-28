@@ -1,10 +1,12 @@
 import {connect} from 'react-redux'
-import {handleListingClick} from '../../store/actions'
+import {handleListingClick, setFbDialogToOpen, toggleAllowUnauth} from '../../store/actions'
 import Listing from './Listing'
 
 const mapStateToProps = (state) => {
     return {
-        showFacebook: state.getIn(['flags', 'showFacebook'])
+        showFacebook: state.getIn(['flags', 'facebookDialogIsOpen']),
+        allowUnauth: state.getIn(['flags', 'allowUnauth'])
+
     }
 }
 
@@ -16,6 +18,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         handleListingClick: (e) => {
             e.preventDefault()
             dispatch(handleListingClick(id, votes, isGoing))
+        },
+        toggleShowFacebook: () => {
+            dispatch(setFbDialogToOpen(true))
         }
     }
 }

@@ -36,7 +36,7 @@ export default function (state = Map(), action) {
         case 'SET_LISTINGS':
             return setListings(state, action.listings)
         case 'SET_FB_DIALOG_TO_OPEN':
-            return setFbDialogToOpen(action.status)
+            return setFbDialogToOpen(state, action.status)
         default: return state
     }
 }

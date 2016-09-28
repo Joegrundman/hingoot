@@ -4,7 +4,7 @@ import {toggleAllowUnauth, toggleShowHelp} from '../../store/actions'
 
 const mapStateToProps = (state) => {
     return {
-        needsAuth: state.getIn(['flags', 'needsAuth'])
+        allowUnauth: state.getIn(['flags', 'allowUnauth'])
     }
 }
 

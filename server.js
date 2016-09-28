@@ -53,18 +53,23 @@ var currentHr = 0 // initialise current hour
 const everyFiveMins = 300000 // in ms
 
 setInterval(() => {
+    checkToCleanStoreAndExecute()
+},everyFiveMins)
+
+const checkToCleanStoreAndExecute = () => {
     console.log('polling for time')
     const timeNow = new Date()
     const serverTimeZone = timeNow.getTimezoneOffset / 60
-    const day = timeNow.getDate()
+    const day = timeNow.getDate() 
     const hrs = timeNow.getHours() - serverTimeZone
     console.log('current timezone', -serverTimeZone)
+    console.log('current day', day,'    current hrs', hrs)
     if (hrs != currentHr) {
         currentHr = hrs
         cleanUpStore(day, hrs)
         console.log('server called cleanUpStore at time', timeNow)
     }
-},everyFiveMins)
+}
 
 // access the react app
 app.use(express.static('build/'))

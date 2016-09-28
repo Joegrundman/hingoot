@@ -1,11 +1,12 @@
 import React, {PropTypes} from 'react'
 import {Card, CardHeader, CardText, CardActions} from 'material-ui/Card'
 import FlatButton from 'material-ui/FlatButton'
+// import FacebookHandler from '../FacebookHandler/FacebookHandlerOld'
 import FacebookHandler from '../FacebookHandler/FacebookHandlerContainer'
 import './Listing.css'
 
 
-const Listing = ({stats, showFacebook, handleListingClick }) => (
+const Listing = ({stats, showFacebook, handleListingClick, allowUnauth, toggleShowFacebook}) => (
            <div className="Listing">  
             <Card>
                 {showFacebook ? <FacebookHandler />: null}
@@ -19,7 +20,7 @@ const Listing = ({stats, showFacebook, handleListingClick }) => (
                     <FlatButton 
                     primary={true}
                     label={stats.get('isGoing') ? "Not Going?": "Going?"} 
-                    onClick={handleListingClick}/>
+                    onClick={ allowUnauth ? handleListingClick : toggleShowFacebook }/>
                     <a href={stats.get('url')} 
                        target="_blank" >
                         <FlatButton 
@@ -38,11 +39,14 @@ const Listing = ({stats, showFacebook, handleListingClick }) => (
 Listing.propTypes = {
     stats: PropTypes.object.isRequired, // passed down from ListingContainer
     handleListingClick: PropTypes.func.isRequired,
-    showFacebook: PropTypes.bool.isRequired
+    toggleShowFacebook: PropTypes.func.isRequired,
+    showFacebook: PropTypes.bool.isRequired,
+    allowUnauth: PropTypes.bool.isRequired
 }
 
 Listing.defaultProps = {
-    showFacebook: false
+    showFacebook: false,
+    allowUnauth: false
 }
 
 export default Listing
